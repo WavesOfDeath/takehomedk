@@ -1,6 +1,6 @@
 import React, { useId, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowRight, BadgeCheck, Building2, Calculator, ChevronRight, CircleDollarSign, ClipboardCheck, Copy, FileText, Globe2, Landmark, Plane, ShieldCheck, Sparkles, TrendingUp, WalletCards } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Building2, Calculator, ChevronRight, CircleDollarSign, ClipboardCheck, Copy, FileText, Globe2, Landmark, Mail, Plane, ShieldCheck, Sparkles, TrendingUp, WalletCards } from 'lucide-react';
 import './styles.css';
 
 const municipalities = [
@@ -93,7 +93,64 @@ function ResultCard({ icon: Icon, label, value, detail, tone = '' }) {
   </div>;
 }
 
-function App() {
+const staticPages = {
+  '/about': {
+    eyebrow: 'About TakeHomeDK',
+    title: 'A clearer way to evaluate a Danish job offer.',
+    description: 'TakeHomeDK helps international professionals understand Danish salary offers before they relocate, negotiate or accept a role.',
+    sections: [
+      ['Why this site exists', 'Danish compensation can be hard to interpret if you are new to the country. Gross salary, AM-bidrag, municipal tax, pension, work-permit thresholds and living costs all affect the real value of an offer. TakeHomeDK brings those pieces into one transparent screening tool.'],
+      ['Who it is for', 'The site is built for expats, engineers, life-science professionals, IT workers, researchers, PhDs and families comparing jobs in Copenhagen, Kalundborg, Aarhus, Odense and other Danish cities.'],
+      ['How to use it responsibly', 'Use the calculator as an early decision aid. Always verify final tax, immigration and pension questions with SKAT, SIRI, your employer, your union, your pension provider or a qualified advisor.'],
+    ],
+  },
+  '/contact': {
+    eyebrow: 'Contact',
+    title: 'Contact TakeHomeDK.',
+    description: 'Questions, corrections and source updates help make the calculator more useful and accurate.',
+    sections: [
+      ['For corrections', 'If you spot an outdated threshold, municipality tax issue or unclear explanation, please send the page, the issue and the official source you are comparing against.'],
+      ['For partnerships', 'Relevant partnerships could include relocation advisors, Danish tax specialists, accountants, unions, pension educators, recruiters and expat service providers.'],
+      ['Contact method', 'For now, use the GitHub repository for technical issues or add your preferred public contact email before applying to AdSense. Recommended production email: hello@takehomedk.com after you connect the domain.'],
+    ],
+  },
+  '/privacy-policy': {
+    eyebrow: 'Privacy policy',
+    title: 'Privacy Policy.',
+    description: 'This page explains the current privacy posture of TakeHomeDK before analytics or ads are added.',
+    sections: [
+      ['Current data collection', 'The current calculator runs in your browser and does not require an account. The salary, pension, bonus, municipality and budget values you enter are used to update the page calculation and are not intentionally collected by TakeHomeDK.'],
+      ['Hosting logs', 'The site is hosted on Vercel. Vercel may process technical logs such as IP address, browser, requested URL and timestamps for security, debugging and hosting operations.'],
+      ['Future analytics and ads', 'If analytics, cookies, Google AdSense or other advertising technologies are added, this policy should be updated before launch to describe cookies, consent, data sharing, retention and opt-out choices.'],
+      ['No professional advice record', 'Do not enter confidential tax, immigration, employment or personal information into the site. The tool is a public calculator, not a private advisory service.'],
+    ],
+  },
+  '/disclaimer': {
+    eyebrow: 'Disclaimer',
+    title: 'Important tax, immigration and financial disclaimer.',
+    description: 'TakeHomeDK is a calculator for orientation and education, not a substitute for official decisions or professional advice.',
+    sections: [
+      ['Estimates only', 'The calculations are simplified estimates based on visible assumptions and public-source references. Real Danish tax outcomes can depend on tax card details, deductions, pension setup, employment contract terms, municipality, church tax, timing and personal circumstances.'],
+      ['Not immigration advice', 'The Pay Limit Scheme and researcher/key employee signals are screening tools only. SIRI and SKAT decide real eligibility and which salary components count. Always check official rules and get qualified advice before relying on a result.'],
+      ['No guarantee', 'TakeHomeDK aims to be useful and transparent, but it may contain errors, outdated information or simplifications. You use the site at your own risk.'],
+      ['Source-first approach', 'Where possible, the site links to official Danish sources so users can verify the assumptions behind the calculator.'],
+    ],
+  },
+};
+
+function SiteHeader() {
+  return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
+}
+
+function SiteFooter() {
+  return <footer><div><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p><div className="footerLinks"><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy</a><a href="/disclaimer">Disclaimer</a></div></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>;
+}
+
+function StaticPage({ page }) {
+  return <main><SiteHeader/><section className="staticHero"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p className="lead">{page.description}</p></section><section className="staticContent">{page.sections.map(([heading, body]) => <article key={heading}><h2>{heading}</h2><p>{body}</p></article>)}<div className="staticCta"><a className="primary" href="/#calculator">Use the calculator <ArrowRight size={18}/></a><a className="secondary" href="/disclaimer">Read disclaimer</a></div></section><SiteFooter/></main>;
+}
+
+function HomePage() {
   const [grossMonthly, setGrossMonthly] = useState(62000);
   const [municipality, setMunicipality] = useState('Copenhagen');
   const [employerPensionPct, setEmployerPensionPct] = useState(10);
@@ -165,7 +222,7 @@ function App() {
   }
 
   return <main>
-    <header className="nav"><a className="brand" href="#top"><span>TakeHome</span><b>DK</b></a><nav><a href="#calculator">Calculator</a><a href="#visa">Visa</a><a href="#guide">Tax guide</a><a href="#sources">Sources</a></nav></header>
+    <SiteHeader/>
 
     <section id="top" className="hero">
       <div className="heroText">
@@ -298,8 +355,14 @@ function App() {
       <div className="sourceList">{sources.map(([label, url]) => <a key={url} href={url} target="_blank" rel="noreferrer"><Globe2 size={18}/><span>{label}</span></a>)}</div>
     </section>
 
-    <footer><div><a className="brand" href="#top"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>
+    <SiteFooter/>
   </main>;
+}
+
+function App() {
+  const page = staticPages[window.location.pathname];
+  if (page) return <StaticPage page={page}/>;
+  return <HomePage/>;
 }
 
 createRoot(document.getElementById('root')).render(<App/>);

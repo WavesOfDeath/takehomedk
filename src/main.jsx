@@ -38,6 +38,22 @@ const searchLandingPages = [
   ['Denmark cost of living calculator', 'Estimate what remains after rent and recurring monthly costs.', '/copenhagen-cost-of-living-calculator'],
 ];
 
+const salaryGuideLinks = [
+  ['Data scientist salary Denmark', '/data-scientist-salary-denmark'],
+  ['Data analyst salary Denmark', '/data-analyst-salary-denmark'],
+  ['AI engineer salary Denmark', '/ai-engineer-salary-denmark'],
+  ['Data engineer salary Denmark', '/data-engineer-salary-denmark'],
+  ['Environmental engineer salary Denmark', '/environmental-engineer-salary-denmark'],
+  ['QA specialist salary Denmark', '/qa-specialist-salary-denmark'],
+  ['Automation engineer salary Denmark', '/automation-engineer-salary-denmark'],
+  ['Mechanical engineer salary Denmark', '/mechanical-engineer-salary-denmark'],
+  ['Electrical engineer salary Denmark', '/electrical-engineer-salary-denmark'],
+  ['Civil engineer salary Denmark', '/civil-engineer-salary-denmark'],
+  ['Project manager salary Denmark', '/project-manager-salary-denmark'],
+  ['Scientist salary Denmark', '/scientist-salary-denmark'],
+  ['Business analyst salary Denmark', '/business-analyst-salary-denmark'],
+];
+
 const faqs = [
   ['Is this an official Danish tax calculation?', 'No. TakeHomeDK is an offer-screening calculator based on published rules and transparent assumptions. Use SKAT, SIRI or a qualified advisor before making legal, tax or immigration decisions.'],
   ['Does employer pension count as take-home pay?', 'No. Employer pension is shown as compensation value, but it is not included in monthly cash take-home pay. The Pay Limit Scheme screen models it separately because some pension components may count toward the threshold.'],
@@ -249,6 +265,149 @@ const seoPages = {
       ['Negotiation ideas', 'If base salary is difficult to move, consider negotiating pension, signing bonus, relocation package, temporary housing, flexible work location, equipment budget or extra vacation.'],
     ],
   },
+  '/data-scientist-salary-denmark': {
+    eyebrow: 'Data scientist salary Denmark',
+    title: 'Data scientist salary in Denmark: estimate take-home pay and offer value.',
+    description: 'Evaluate Danish data scientist offers with tax, pension, bonus, city costs and work-permit salary threshold context.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Data scientist salaries in Denmark can include base pay, pension, bonus and sometimes stock or one-off relocation support. The monthly gross salary is only the first number; the real offer depends on Danish tax, employee pension, municipality and living costs.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/data-analyst-salary-denmark': {
+    eyebrow: 'Data analyst salary Denmark',
+    title: 'Data analyst salary in Denmark: net pay and cost-of-living estimate.',
+    description: 'Screen Danish data analyst job offers by modelling take-home pay, pension, bonus and living costs.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Data analyst roles vary between public sector, consulting, finance, life science and tech companies. A slightly lower gross salary may still be attractive if pension, work-life balance, city choice and budget result are strong.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/ai-engineer-salary-denmark': {
+    eyebrow: 'AI engineer salary Denmark',
+    title: 'AI engineer salary in Denmark: estimate tax, pension and relocation budget.',
+    description: 'Calculate the real monthly value of AI engineer and machine-learning engineer offers in Denmark.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'AI engineer and machine-learning engineer roles may include higher base salary, bonus, stock-like incentives, pension and relocation support. Danish tax and living costs determine how much becomes usable monthly cash.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/data-engineer-salary-denmark': {
+    eyebrow: 'Data engineer salary Denmark',
+    title: 'Data engineer salary in Denmark: take-home pay, pension and bonus calculator.',
+    description: 'Estimate Danish data engineer offer value after tax, employee pension, employer pension and living costs.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Data engineers are in demand across pharma, finance, consulting, SaaS and industrial companies in Denmark. Offers can differ by cloud stack, seniority, pension and bonus, so total compensation is more useful than gross salary alone.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/environmental-engineer-salary-denmark': {
+    eyebrow: 'Environmental engineer salary Denmark',
+    title: 'Environmental engineer salary in Denmark: estimate net pay and relocation budget.',
+    description: 'Evaluate Danish environmental engineering offers with taxes, pension, municipality and cost-of-living context.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Environmental engineers may work in consulting, water, waste, energy, manufacturing, pharma, permitting, sustainability or public-sector roles. Salary and pension structures can vary significantly by employer type.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/qa-specialist-salary-denmark': {
+    eyebrow: 'QA specialist salary Denmark',
+    title: 'QA specialist salary in Denmark: GMP, validation and pharma offer calculator.',
+    description: 'Estimate take-home pay and total offer value for QA specialist roles in Danish pharma, biotech and regulated industries.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'QA, GMP, validation and compliance roles are common entry points for international life-science professionals in Denmark. Offers often combine stable salary, pension and bonus, but the after-tax result needs modelling.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/automation-engineer-salary-denmark': {
+    eyebrow: 'Automation engineer salary Denmark',
+    title: 'Automation engineer salary in Denmark: net pay and job-offer calculator.',
+    description: 'Calculate real offer value for Danish automation, PLC, robotics and manufacturing IT roles.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Automation engineers can work in pharma, robotics, manufacturing, energy and industrial IT. Compensation may reflect shift needs, travel, on-call responsibility, project delivery and plant location.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/mechanical-engineer-salary-denmark': {
+    eyebrow: 'Mechanical engineer salary Denmark',
+    title: 'Mechanical engineer salary in Denmark: after-tax offer calculator.',
+    description: 'Estimate Danish mechanical engineering take-home pay, pension value, bonus and living-cost impact.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Mechanical engineers in Denmark work across manufacturing, energy, pharma equipment, consulting, infrastructure and product development. Pension, location and bonus can change the offer value materially.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/electrical-engineer-salary-denmark': {
+    eyebrow: 'Electrical engineer salary Denmark',
+    title: 'Electrical engineer salary in Denmark: net pay, pension and relocation estimate.',
+    description: 'Screen Danish electrical engineering offers with take-home pay, pension, tax and living-cost calculations.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Electrical engineers may find roles in energy, automation, pharma, manufacturing, utilities, construction, robotics and consulting. Salary levels and bonus structures vary by sector and seniority.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/civil-engineer-salary-denmark': {
+    eyebrow: 'Civil engineer salary Denmark',
+    title: 'Civil engineer salary in Denmark: after-tax salary and cost-of-living calculator.',
+    description: 'Estimate real monthly value from civil engineering offers in Denmark before relocating or negotiating.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Civil engineers in Denmark may work in infrastructure, consulting, construction, sustainability, water, transport and public-sector projects. Salary is only part of the offer; pension and living costs matter.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/project-manager-salary-denmark': {
+    eyebrow: 'Project manager salary Denmark',
+    title: 'Project manager salary in Denmark: estimate net pay and total compensation.',
+    description: 'Evaluate Danish project manager offers with salary, pension, bonus, tax municipality and relocation budget in one calculator.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Project managers in Denmark work across pharma, IT, engineering, construction, consulting and transformation roles. Seniority, bonus, pension and sector can make offers hard to compare from gross salary alone.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/scientist-salary-denmark': {
+    eyebrow: 'Scientist salary Denmark',
+    title: 'Scientist salary in Denmark: PhD, biotech and pharma offer calculator.',
+    description: 'Estimate take-home pay and researcher-tax-scheme relevance for scientist and PhD-level roles in Denmark.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Scientist roles may involve PhD-level qualifications, research appointments, pharma R&D, biotech, universities or startups. Tax scheme eligibility and pension can matter as much as base salary.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
+  '/business-analyst-salary-denmark': {
+    eyebrow: 'Business analyst salary Denmark',
+    title: 'Business analyst salary in Denmark: estimate take-home pay and budget.',
+    description: 'Calculate the net monthly value of Danish business analyst offers after tax, pension and living costs.',
+    sections: [
+      ['Why this role needs a full salary calculation', 'Business analyst roles exist in finance, pharma, consulting, IT, public sector and operations. Sector, seniority, bonus and pension can shift the real value of an offer.'],
+      ['What to enter in the calculator', 'Enter the gross monthly salary, employer pension, employee pension, annual bonus and the municipality where you expect to live. Then test realistic rent and recurring costs to see monthly disposable income.'],
+      ['Questions to ask before accepting', 'Ask about pension start date, bonus rules, relocation support, hybrid work, overtime or travel expectations, and whether the employer supports work permits for international candidates when needed.'],
+      ['How to use the result', 'Compare monthly net pay, annual net pay, employer pension value, Pay Limit Scheme margin and leftover money after living costs. Use the numbers to negotiate salary, relocation support or contract terms before accepting.'],
+    ],
+  },
 };
 
 Object.assign(staticPages, seoPages);
@@ -447,6 +606,11 @@ function HomePage() {
     <section className="landingSection">
       <div className="sectionIntro"><p className="eyebrow">Find the right calculator</p><h2>Popular Denmark salary questions this page answers</h2><p>These topic tiles make the site easier to scan and create a clear roadmap for future dedicated SEO pages.</p></div>
       <div className="landingGrid">{searchLandingPages.map(([title, description, href]) => <a className="landingTile" key={title} href={href}><h3>{title}</h3><p>{description}</p><span>Read guide <ChevronRight size={15}/></span></a>)}</div>
+    </section>
+
+    <section className="salaryGuideSection">
+      <div className="sectionIntro"><p className="eyebrow">Salary guides by role</p><h2>Popular Denmark job-title salary guides for expats</h2><p>These pages target specific job-offer searches and help international candidates compare tax, pension, visa-threshold and living-cost implications by role.</p></div>
+      <div className="salaryGuideGrid">{salaryGuideLinks.map(([title, href]) => <a key={href} href={href}>{title}<ChevronRight size={15}/></a>)}</div>
     </section>
 
     <section className="professionSection">

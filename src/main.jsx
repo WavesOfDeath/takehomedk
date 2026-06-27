@@ -58,6 +58,7 @@ const salaryGuideLinks = [
 const guideCategories = [
   {
     eyebrow: 'Start here',
+    slug: '/guides/salary-calculators',
     title: 'Core Denmark offer calculators',
     description: 'Use these pages first when you need to understand Danish take-home pay, taxes, pension value, work-permit salary thresholds and monthly budget pressure.',
     links: [
@@ -69,6 +70,7 @@ const guideCategories = [
   },
   {
     eyebrow: 'Visa and tax',
+    slug: '/guides/visa-tax',
     title: 'Work-permit and Danish tax guides',
     description: 'Pages for candidates who need to understand whether an offer is high enough for immigration routes and how Danish tax layers affect the real result.',
     links: [
@@ -79,6 +81,7 @@ const guideCategories = [
   },
   {
     eyebrow: 'Life science and engineering',
+    slug: '/guides/engineering-pharma',
     title: 'Engineering and pharma salary guides',
     description: 'Role-specific pages for expats comparing Danish engineering, pharma, QA, automation and scientist offers.',
     links: [
@@ -95,6 +98,7 @@ const guideCategories = [
   },
   {
     eyebrow: 'Tech and business',
+    slug: '/guides/tech-data-business',
     title: 'Tech, data and business salary guides',
     description: 'Guides for international candidates evaluating Danish data, AI, software, project and business roles.',
     links: [
@@ -710,10 +714,64 @@ function SiteFooter() {
   return <footer><div><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p><div className="footerLinks"><a href="/guides">Guides</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy</a><a href="/disclaimer">Disclaimer</a></div></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>;
 }
 
+
+function setOrCreateMeta(selector, tagName, attrs) {
+  let element = document.querySelector(selector);
+  if (!element) {
+    element = document.createElement(tagName);
+    document.head.appendChild(element);
+  }
+  Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value));
+}
+
+function removeDynamicJsonLd() {
+  document.querySelectorAll('script[data-dynamic-jsonld="true"]').forEach(node => node.remove());
+}
+
+function addJsonLd(data) {
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.dataset.dynamicJsonld = 'true';
+  script.textContent = JSON.stringify(data);
+  document.head.appendChild(script);
+}
+
+function updateSeo({ title, description, path = '/', type = 'website', breadcrumbs = [], jsonLd = [] }) {
+  const url = `https://takehomedk.com${path === '/' ? '/' : path}`;
+  document.title = title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+  setOrCreateMeta('link[rel="canonical"]', 'link', { rel: 'canonical', href: url });
+  setOrCreateMeta('meta[property="og:title"]', 'meta', { property: 'og:title', content: title });
+  setOrCreateMeta('meta[property="og:description"]', 'meta', { property: 'og:description', content: description });
+  setOrCreateMeta('meta[property="og:url"]', 'meta', { property: 'og:url', content: url });
+  setOrCreateMeta('meta[property="og:type"]', 'meta', { property: 'og:type', content: type });
+  setOrCreateMeta('meta[name="twitter:card"]', 'meta', { name: 'twitter:card', content: 'summary' });
+  setOrCreateMeta('meta[name="twitter:title"]', 'meta', { name: 'twitter:title', content: title });
+  setOrCreateMeta('meta[name="twitter:description"]', 'meta', { name: 'twitter:description', content: description });
+  removeDynamicJsonLd();
+  if (breadcrumbs.length) {
+    addJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: `https://takehomedk.com${crumb.path === '/' ? '/' : crumb.path}`,
+      }))
+    });
+  }
+  jsonLd.forEach(addJsonLd);
+}
+
+function Breadcrumbs({ items }) {
+  return <nav className="breadcrumbs" aria-label="Breadcrumb">{items.map((item, index) => <React.Fragment key={item.path}><a href={item.path}>{item.name}</a>{index < items.length - 1 && <span>/</span>}</React.Fragment>)}</nav>;
+}
+
 function StaticPage({ page }) {
   return <main>
     <SiteHeader/>
-    <section className="staticHero"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p className="lead">{page.description}</p></section>
+    <section className="staticHero"><Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Guides', path: '/guides' }, { name: page.eyebrow, path: window.location.pathname }]}/><p className="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p className="lead">{page.description}</p></section>
     <section className="staticContent">
       {page.salaryRange && <aside className="salaryRangePanel" aria-label="Indicative salary range">
         <div><p className="eyebrow">Public salary data signal</p><h2>Indicative gross salary range</h2><strong>{page.salaryRange.range}</strong><p>{page.salaryRange.typical}</p><small>{page.salaryRange.note}</small></div>
@@ -731,13 +789,19 @@ function StaticPage({ page }) {
 
 
 function GuidesPage() {
-  document.title = 'Denmark salary and tax guides for expats — TakeHomeDK';
-  document.querySelector('meta[name="description"]')?.setAttribute('content', 'Browse TakeHomeDK guides for Denmark salary calculators, job-title salary pages, tax explanations, Pay Limit Scheme checks and Copenhagen living-cost planning.');
+  const description = 'Browse TakeHomeDK guides for Denmark salary calculators, job-title salary pages, tax explanations, Pay Limit Scheme checks and Copenhagen living-cost planning.';
+  updateSeo({
+    title: 'Denmark salary and tax guides for expats — TakeHomeDK',
+    description,
+    path: '/guides',
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Guides', path: '/guides' }],
+    jsonLd: [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'TakeHomeDK guide hub', description, url: 'https://takehomedk.com/guides' }]
+  });
   const totalGuides = guideCategories.reduce((sum, category) => sum + category.links.length, 0);
   return <main>
     <SiteHeader/>
     <section className="guidesHero">
-      <p className="eyebrow">TakeHomeDK guide hub</p>
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Guides', path: '/guides' }]}/><p className="eyebrow">TakeHomeDK guide hub</p>
       <h1>Denmark salary, tax and job-offer guides for expats.</h1>
       <p className="lead">Browse every TakeHomeDK guide from one page: core salary calculators, city pages, visa-threshold checks, tax explainers and job-title salary guides for international professionals considering Denmark.</p>
       <div className="guideHubStats"><span><b>{totalGuides}</b> guides</span><span><b>4</b> categories</span><span><b>2026</b> tax year focus</span></div>
@@ -745,7 +809,7 @@ function GuidesPage() {
     </section>
     <section className="guidesIndex" aria-label="All TakeHomeDK guides">
       {guideCategories.map(category => <article className="guideCategory" key={category.title}>
-        <div className="guideCategoryIntro"><p className="eyebrow">{category.eyebrow}</p><h2>{category.title}</h2><p>{category.description}</p></div>
+        <div className="guideCategoryIntro"><p className="eyebrow">{category.eyebrow}</p><h2><a href={category.slug}>{category.title}</a></h2><p>{category.description}</p><a className="categoryDeepLink" href={category.slug}>Open category hub <ChevronRight size={15}/></a></div>
         <div className="guideLinkList">{category.links.map(([title, description, href]) => <a key={href} href={href}><span><b>{title}</b><small>{description}</small></span><ChevronRight size={17}/></a>)}</div>
       </article>)}
     </section>
@@ -756,6 +820,57 @@ function GuidesPage() {
         <li><b>Check visa and tax risk.</b><span>If you are non-EU or highly paid, review the Pay Limit Scheme and researcher tax pages.</span></li>
         <li><b>Compare the role page.</b><span>Open the job-title guide closest to your offer and use its negotiation checklist.</span></li>
         <li><b>Stress-test living costs.</b><span>Run a conservative Copenhagen or city budget before signing or relocating.</span></li>
+      </ol>
+    </section>
+    <SiteFooter/>
+  </main>;
+}
+
+
+function GuideCategoryPage({ category }) {
+  const title = `${category.title} — TakeHomeDK`;
+  const description = `${category.description} Browse ${category.links.length} TakeHomeDK guides and calculators for expats evaluating Danish job offers.`;
+  updateSeo({
+    title,
+    description,
+    path: category.slug,
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Guides', path: '/guides' }, { name: category.title, path: category.slug }],
+    jsonLd: [{
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: category.title,
+      description,
+      url: `https://takehomedk.com${category.slug}`,
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: category.links.map(([name, itemDescription, href], index) => ({ '@type': 'ListItem', position: index + 1, name, description: itemDescription, url: `https://takehomedk.com${href}` }))
+      }
+    }]
+  });
+  return <main>
+    <SiteHeader/>
+    <section className="guidesHero categoryHero">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Guides', path: '/guides' }, { name: category.title, path: category.slug }]}/>
+      <p className="eyebrow">{category.eyebrow}</p>
+      <h1>{category.title}.</h1>
+      <p className="lead">{category.description} Use this category hub to move from a broad salary question to the exact calculator or profession guide that matches your Danish offer.</p>
+      <div className="guideHubStats"><span><b>{category.links.length}</b> guides</span><span><b>2026</b> salary context</span><span><b>DKK</b> gross-to-net focus</span></div>
+    </section>
+    <section className="categoryIndex">
+      {category.links.map(([title, description, href], index) => <article key={href}>
+        <span className="articleNumber">{String(index + 1).padStart(2, '0')}</span>
+        <h2><a href={href}>{title}</a></h2>
+        <p>{description}</p>
+        <a className="categoryCardLink" href={href}>Read guide <ChevronRight size={16}/></a>
+      </article>)}
+    </section>
+    <section className="guidesHowTo compactHowTo">
+      <div><p className="eyebrow">Next step</p><h2>Turn salary ranges into a take-home estimate</h2></div>
+      <ol>
+        <li><b>Open the closest guide.</b><span>Start with the role, city or tax route that matches the offer.</span></li>
+        <li><b>Enter the actual offer.</b><span>Use gross salary, pension, bonus and municipality in the calculator.</span></li>
+        <li><b>Compare scenarios.</b><span>Test conservative rent, no bonus and different municipalities before accepting.</span></li>
+        <li><b>Verify important assumptions.</b><span>Use SKAT, SIRI, employer documentation or an advisor for official decisions.</span></li>
       </ol>
     </section>
     <SiteFooter/>
@@ -978,14 +1093,27 @@ function HomePage() {
 
 function App() {
   if (window.location.pathname === '/guides') return <GuidesPage/>;
+  const category = guideCategories.find(item => item.slug === window.location.pathname);
+  if (category) return <GuideCategoryPage category={category}/>;
   const page = staticPages[window.location.pathname];
   if (page) {
-    document.title = `${page.eyebrow} — TakeHomeDK`;
-    document.querySelector('meta[name="description"]')?.setAttribute('content', page.description);
+    const path = window.location.pathname;
+    updateSeo({
+      title: `${page.eyebrow} — TakeHomeDK`,
+      description: page.description,
+      path,
+      type: 'article',
+      breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Guides', path: '/guides' }, { name: page.eyebrow, path }],
+      jsonLd: [{ '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, url: `https://takehomedk.com${path}`, dateModified: '2026-06-27', publisher: { '@type': 'Organization', name: 'TakeHomeDK', url: 'https://takehomedk.com' } }]
+    });
     return <StaticPage page={page}/>;
   }
-  document.title = 'TakeHomeDK — Denmark Salary Calculator 2026';
-  document.querySelector('meta[name="description"]')?.setAttribute('content', 'English Denmark salary, tax, Pay Limit Scheme, researcher tax and relocation calculator for expats considering Danish job offers.');
+  updateSeo({
+    title: 'TakeHomeDK — Denmark Salary Calculator 2026',
+    description: 'English Denmark salary, tax, Pay Limit Scheme, researcher tax and relocation calculator for expats considering Danish job offers.',
+    path: '/',
+    breadcrumbs: [{ name: 'Home', path: '/' }]
+  });
   return <HomePage/>;
 }
 

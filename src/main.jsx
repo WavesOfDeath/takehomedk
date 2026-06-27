@@ -111,7 +111,7 @@ const staticPages = {
     sections: [
       ['For corrections', 'If you spot an outdated threshold, municipality tax issue or unclear explanation, please send the page, the issue and the official source you are comparing against.'],
       ['For partnerships', 'Relevant partnerships could include relocation advisors, Danish tax specialists, accountants, unions, pension educators, recruiters and expat service providers.'],
-      ['Contact method', 'Email TakeHomeDK at takehomedk@protonmail.com for corrections, questions, partnership enquiries or source updates. For technical issues, you can also use the GitHub repository at https://github.com/WavesOfDeath/takehomedk.'],
+      ['Contact method', 'Email TakeHomeDK at takehomedk@protonmail.com for corrections, questions, partnership enquiries or source updates.'],
     ],
   },
   '/privacy-policy': {

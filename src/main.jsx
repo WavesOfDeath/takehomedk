@@ -133,11 +133,11 @@ const staticPages = {
   '/privacy-policy': {
     eyebrow: 'Privacy policy',
     title: 'Privacy Policy.',
-    description: 'This page explains the current privacy posture of TakeHomeDK before analytics or ads are added.',
+    description: 'This page explains how TakeHomeDK handles calculator inputs, hosting logs and Google Analytics traffic measurement.',
     sections: [
       ['Current data collection', 'The current calculator runs in your browser and does not require an account. The salary, pension, bonus, municipality and budget values you enter are used to update the page calculation and are not intentionally collected by TakeHomeDK.'],
       ['Hosting logs', 'The site is hosted on Vercel. Vercel may process technical logs such as IP address, browser, requested URL and timestamps for security, debugging and hosting operations.'],
-      ['Future analytics and ads', 'If analytics, cookies, Google AdSense or other advertising technologies are added, this policy should be updated before launch to describe cookies, consent, data sharing, retention and opt-out choices.'],
+      ['Google Analytics', 'TakeHomeDK uses Google Analytics 4 to understand aggregated website traffic, popular pages, referral sources and basic engagement. Google Analytics may use cookies or similar technologies to measure visits. Do not enter confidential tax, immigration, employment or personal information into the calculator.'],
       ['No professional advice record', 'Do not enter confidential tax, immigration, employment or personal information into the site. The tool is a public calculator, not a private advisory service.'],
     ],
   },

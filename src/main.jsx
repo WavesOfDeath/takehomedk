@@ -30,12 +30,12 @@ const sources = [
 ];
 
 const searchLandingPages = [
-  ['Copenhagen salary calculator', 'High-rent city budget with Copenhagen municipal tax preset.'],
-  ['Kalundborg salary calculator', 'Useful for pharma, engineering and manufacturing offers.'],
-  ['Denmark Pay Limit Scheme checker', 'Quick screen against the 2026 work-permit salary threshold.'],
-  ['Researcher tax scheme calculator', 'Salary and PhD/researcher status signal for international hires.'],
-  ['Denmark job offer calculator', 'Base salary, pension, bonus, tax and living costs in one view.'],
-  ['Denmark cost of living calculator', 'Estimate what remains after rent and recurring monthly costs.'],
+  ['Copenhagen salary calculator', 'High-rent city budget with Copenhagen municipal tax preset.', '/copenhagen-salary-calculator'],
+  ['Kalundborg salary calculator', 'Useful for pharma, engineering and manufacturing offers.', '/kalundborg-salary-calculator'],
+  ['Denmark Pay Limit Scheme checker', 'Quick screen against the 2026 work-permit salary threshold.', '/denmark-pay-limit-scheme-checker-2026'],
+  ['Researcher tax scheme calculator', 'Salary and PhD/researcher status signal for international hires.', '/denmark-researcher-tax-scheme'],
+  ['Denmark job offer calculator', 'Base salary, pension, bonus, tax and living costs in one view.', '/denmark-salary-calculator-2026'],
+  ['Denmark cost of living calculator', 'Estimate what remains after rent and recurring monthly costs.', '/copenhagen-cost-of-living-calculator'],
 ];
 
 const faqs = [
@@ -137,6 +137,121 @@ const staticPages = {
     ],
   },
 };
+
+const seoPages = {
+  '/denmark-salary-calculator-2026': {
+    eyebrow: 'Denmark salary calculator 2026',
+    title: 'Denmark salary after tax calculator for expats in 2026.',
+    description: 'Estimate Danish take-home pay from gross salary, pension, bonus, municipality, AM-bidrag and tax-card deductions before accepting a job offer.',
+    sections: [
+      ['What this page helps you calculate', 'A Danish job offer is rarely understandable from the gross monthly salary alone. The real decision depends on income tax, AM-bidrag, employee pension, employer pension, bonus, tax deductions, municipality and living costs. This page explains how to use TakeHomeDK as an offer-screening calculator before you accept, negotiate or relocate.'],
+      ['Which salary number to enter', 'Enter the gross monthly salary before tax and before employer pension. If the contract lists an annual salary, divide the cash salary by 12 and enter expected or guaranteed bonus separately. Employer pension should be entered as a percentage because it adds compensation value but is normally not paid as monthly take-home cash.'],
+      ['How to interpret the result', 'Focus on monthly net pay, annual net pay, effective tax burden, employer pension value and the budget result after rent and recurring costs. The calculator is not an official SKAT assessment; it is a transparent estimate that helps you compare offers and identify questions to ask your employer, union, tax advisor or relocation contact.'],
+      ['Best next step', 'After calculating your base case, test a conservative scenario with higher rent, lower deductions and no bonus. If the offer still leaves a comfortable monthly buffer, it is more resilient. If it only works with optimistic assumptions, negotiate salary, pension, relocation support or a signing bonus before accepting.'],
+    ],
+  },
+  '/copenhagen-salary-calculator': {
+    eyebrow: 'Copenhagen salary calculator',
+    title: 'Copenhagen salary calculator: estimate take-home pay and rent pressure.',
+    description: 'Calculate what a Copenhagen job offer may leave after Danish taxes, pension and typical high city living costs.',
+    sections: [
+      ['Why Copenhagen needs its own calculation', 'Copenhagen is Denmark’s largest expat job market, but it is also one of the most expensive places to rent. A salary that looks high on paper can feel very different once municipal tax, pension contributions, rent, utilities, food, transport and insurance are considered together.'],
+      ['What to include in your Copenhagen budget', 'Start with rent and common charges, then add utilities, phone, internet, transport, groceries, insurance, A-kasse or union fees, fitness and travel. For newcomers, the first months may also include deposits, furniture, CPR-related setup delays and temporary accommodation.'],
+      ['How to use the calculator for negotiation', 'Set the municipality to Copenhagen, enter the gross monthly salary, pension percentages and bonus, then adjust monthly rent to match realistic housing options. If the leftover amount is thin, use the result as a salary-negotiation prompt rather than a final answer.'],
+      ['Who this is most useful for', 'This page is especially useful for engineers, software developers, data professionals, pharma specialists, researchers and families comparing Copenhagen against other Danish cities or offers in Sweden, Germany or the Netherlands.'],
+    ],
+  },
+  '/kalundborg-salary-calculator': {
+    eyebrow: 'Kalundborg salary calculator',
+    title: 'Kalundborg salary calculator for pharma and engineering job offers.',
+    description: 'Estimate take-home pay, pension value and living budget for Kalundborg job offers in pharma, engineering and manufacturing.',
+    sections: [
+      ['Why Kalundborg is different', 'Kalundborg is a major Danish manufacturing and pharma hub, and many international candidates compare offers there with Copenhagen-based roles. Housing costs may be lower than central Copenhagen, but commuting, car needs, family logistics and relocation preferences still matter.'],
+      ['How to model a Kalundborg offer', 'Choose Kalundborg in the municipality field, enter gross monthly salary, pension percentages and bonus, then adjust rent to your real housing plan. For some professionals, living in or near Kalundborg creates a stronger monthly budget than commuting from Copenhagen.'],
+      ['What pharma candidates should check', 'For process engineers, automation engineers, QA specialists, validation professionals and scientists, pension, bonus, paid holidays, relocation support and contract type can materially affect the total offer. Compare total compensation rather than only the monthly salary.'],
+      ['Visa and researcher-tax relevance', 'Many Kalundborg offers are high enough to trigger Pay Limit Scheme or researcher/key employee questions. Use the calculator as an early screen, then verify the actual immigration and tax treatment with SIRI, SKAT and the employer before relying on it.'],
+    ],
+  },
+  '/denmark-pay-limit-scheme-checker-2026': {
+    eyebrow: 'Pay Limit Scheme Denmark 2026',
+    title: 'Denmark Pay Limit Scheme salary checker for 2026.',
+    description: 'Check whether a Danish job offer appears to meet the 2026 Pay Limit Scheme salary threshold before applying for a work permit.',
+    sections: [
+      ['What the Pay Limit Scheme screen does', 'The Pay Limit Scheme is relevant for many non-EU candidates considering work in Denmark. TakeHomeDK includes a simple threshold screen using the 2026 minimum of DKK 552,000 per year, based on the salary components modelled in the calculator.'],
+      ['Which compensation may matter', 'Guaranteed salary, labour-market pension payments and paid holiday allowance may be relevant, while benefits, variable bonus and non-guaranteed compensation need careful review. The calculator gives a screening estimate, not a legal decision.'],
+      ['How to reduce risk before accepting', 'Ask the employer to confirm which salary components are used in the work permit application and whether the contract clearly supports the required threshold. Keep written documentation and check the current SIRI guidance before relying on any calculator.'],
+      ['When to get professional help', 'If your offer is close to the threshold, includes unusual benefits, has a large bonus component, or involves part-time work, get qualified immigration advice before assuming the offer qualifies. A small difference can matter for application timing and approval.'],
+    ],
+  },
+  '/denmark-researcher-tax-scheme': {
+    eyebrow: 'Researcher tax scheme Denmark',
+    title: 'Denmark researcher and key employee tax scheme: salary signal and checks.',
+    description: 'Understand how to screen a Danish offer for researcher or key employee tax scheme relevance before taking professional advice.',
+    sections: [
+      ['What the calculator can signal', 'The Danish researcher/key employee tax scheme can be important for highly paid international hires and qualified researchers. TakeHomeDK provides a simple signal based on salary level and whether a PhD-level or research qualification may be relevant.'],
+      ['Salary is not the only condition', 'For highly paid employees, the salary level is a key signal. For researchers, qualification, appointment type, approval and prior Danish tax liability can matter. This is why the calculator says potentially eligible rather than eligible.'],
+      ['Questions to ask before relocation', 'Ask the employer whether the scheme is expected to apply, who handles the application, how pension and bonus are treated, and whether your prior Danish tax status creates any issue. Confirm with SKAT or a qualified advisor before making decisions.'],
+      ['Why this page matters for PhDs and specialists', 'International PhDs, scientists, engineers and life-science specialists often compare offers across countries. A special tax scheme can materially change the effective value of a Danish offer, so it deserves early attention during negotiation.'],
+    ],
+  },
+  '/copenhagen-cost-of-living-calculator': {
+    eyebrow: 'Copenhagen cost of living calculator',
+    title: 'Copenhagen cost of living calculator for salary decisions.',
+    description: 'Estimate what remains from a Danish salary after tax, pension, rent and recurring monthly costs in Copenhagen.',
+    sections: [
+      ['Why take-home pay is not enough', 'A salary can look attractive after tax but still feel tight if rent and recurring costs are underestimated. Copenhagen housing costs are often the biggest uncertainty for newcomers, especially families and people arriving before they know the rental market.'],
+      ['Costs to include', 'Include rent, utilities, heating, internet, mobile phone, transport, groceries, insurance, A-kasse or union membership, childcare if relevant, fitness, subscriptions and travel. Also remember one-off relocation costs such as deposit, furniture and temporary accommodation.'],
+      ['How to stress-test your budget', 'Run three scenarios: optimistic, realistic and conservative. In the conservative scenario, use higher rent, higher recurring costs and no bonus. If the leftover amount is still positive, the offer is more robust.'],
+      ['How this supports negotiation', 'If the budget result is weak, negotiate before accepting. Possible levers include base salary, employer pension, relocation support, signing bonus, temporary housing, paid travel, flexible location or support for spouse/family relocation.'],
+    ],
+  },
+  '/denmark-tax-guide-expats-2026': {
+    eyebrow: 'Denmark tax guide for expats 2026',
+    title: 'Denmark tax guide for expats: AM-bidrag, municipal tax and salary offers.',
+    description: 'A plain-English guide to the Danish salary tax layers expats need to understand before accepting a job offer in 2026.',
+    sections: [
+      ['The main tax layers', 'A Danish salary estimate usually starts with AM-bidrag, then ordinary income tax layers, municipal tax, possible church tax and personal deductions. The exact result depends on the individual tax card and personal situation.'],
+      ['Why municipality matters', 'Municipal tax differs across Denmark. This is why the calculator includes city presets such as Copenhagen, Frederiksberg, Aarhus, Odense, Aalborg, Kalundborg, Gentofte and Roskilde. The same gross salary can produce a different net estimate depending on municipality.'],
+      ['How pension affects take-home pay', 'Employee pension reduces monthly cash but builds retirement savings. Employer pension increases compensation value but is not normally take-home cash. When comparing offers, separate monthly spending power from total compensation value.'],
+      ['What expats should verify', 'Before accepting, verify your preliminary income assessment, tax card, deductions, pension setup, relocation support and any researcher/key employee or work permit assumptions. Use TakeHomeDK to identify the questions, then confirm with official sources.'],
+    ],
+  },
+  '/process-engineer-salary-denmark': {
+    eyebrow: 'Process engineer salary Denmark',
+    title: 'Process engineer salary in Denmark: estimate take-home pay from an offer.',
+    description: 'Use TakeHomeDK to evaluate Danish process engineer salary offers in pharma, energy, food production and manufacturing.',
+    sections: [
+      ['Why process engineers need total-offer analysis', 'Process engineering offers in Denmark often include pension, bonus, location differences and sometimes relocation support. Gross salary alone does not show how the offer feels after tax, rent and recurring costs.'],
+      ['Key inputs to compare', 'Enter base monthly salary, employer pension, employee pension, annual bonus, municipality and expected rent. For pharma or manufacturing hubs, compare both Copenhagen and Kalundborg-style scenarios if location is flexible.'],
+      ['Questions to ask the employer', 'Ask how bonus is calculated, whether pension starts immediately, whether relocation support is taxable, how overtime or on-call work is handled, and whether the role supports any work permit or researcher-tax considerations.'],
+      ['How to use the result', 'If take-home pay is acceptable but the budget is tight, negotiate relocation assistance or a signing bonus. If the salary is close to a visa threshold, verify counted components before accepting.'],
+    ],
+  },
+  '/pharma-engineer-salary-denmark': {
+    eyebrow: 'Pharma engineer salary Denmark',
+    title: 'Pharma engineer salary in Denmark: tax, pension and relocation calculator.',
+    description: 'Estimate the net value of Danish pharma engineering job offers, including pension, bonus, visa threshold and living-cost pressure.',
+    sections: [
+      ['Why pharma offers can be complex', 'Pharma engineering roles may include base salary, employer pension, employee pension, bonus, relocation support and different work locations. A strong gross salary can still produce different real outcomes depending on tax municipality and housing costs.'],
+      ['What to model first', 'Start with the contract salary and pension percentages. Add guaranteed or expected bonus separately, choose the work or residence municipality, and model realistic living costs. Then check the Pay Limit Scheme screen if work permission matters.'],
+      ['Useful checks for international candidates', 'Confirm whether relocation assistance is offered, whether bonus is guaranteed, how pension is structured, and whether the employer has experience supporting international hires. For specialist or PhD-level roles, ask about researcher/key employee tax scheme relevance.'],
+      ['Why this matters before acceptance', 'Once you relocate, housing deposits, family logistics and administrative setup make changes harder. A clear pre-acceptance calculation helps you negotiate while you still have leverage.'],
+    ],
+  },
+  '/software-engineer-salary-copenhagen': {
+    eyebrow: 'Software engineer salary Copenhagen',
+    title: 'Software engineer salary in Copenhagen: estimate net pay and living budget.',
+    description: 'Calculate how much a Copenhagen software engineer offer may leave after Danish tax, pension and city living costs.',
+    sections: [
+      ['Why Copenhagen tech salaries need context', 'Software engineer offers in Copenhagen can look attractive, but rent, taxes, pension and bonus structure determine the real monthly outcome. International candidates should compare net pay and budget buffer, not only gross salary.'],
+      ['Inputs that matter most', 'Enter gross monthly salary, pension percentages, bonus and Copenhagen municipality. Then test rent levels that match realistic apartments for your household size. The leftover monthly amount is often the clearest decision metric.'],
+      ['Comparing Denmark with other countries', 'Tech candidates often compare Copenhagen with Berlin, Amsterdam, Stockholm or remote roles. Denmark may offer strong work-life balance and benefits, but the take-home and cost-of-living calculation should be explicit before deciding.'],
+      ['Negotiation ideas', 'If base salary is difficult to move, consider negotiating pension, signing bonus, relocation package, temporary housing, flexible work location, equipment budget or extra vacation.'],
+    ],
+  },
+};
+
+Object.assign(staticPages, seoPages);
 
 function SiteHeader() {
   return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
@@ -331,7 +446,7 @@ function HomePage() {
 
     <section className="landingSection">
       <div className="sectionIntro"><p className="eyebrow">Find the right calculator</p><h2>Popular Denmark salary questions this page answers</h2><p>These topic tiles make the site easier to scan and create a clear roadmap for future dedicated SEO pages.</p></div>
-      <div className="landingGrid">{searchLandingPages.map(([title, description]) => <article key={title}><h3>{title}</h3><p>{description}</p></article>)}</div>
+      <div className="landingGrid">{searchLandingPages.map(([title, description, href]) => <a className="landingTile" key={title} href={href}><h3>{title}</h3><p>{description}</p><span>Read guide <ChevronRight size={15}/></span></a>)}</div>
     </section>
 
     <section className="professionSection">

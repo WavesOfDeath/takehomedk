@@ -605,6 +605,103 @@ const enhancedSeoPages = {
 
 Object.assign(staticPages, enhancedSeoPages);
 
+
+const salaryRangeSources = [
+  ['IDA Salary Statistics', 'https://ida.dk/en/career-and-legal-advice/salary/idas-salary-statistics'],
+  ['IDA data science salary guide', 'https://studerende.ida.dk/english/about-to-graduate/salary/data-science-salary-what-you-will-earn/'],
+  ['SDU engineering salary note', 'https://www.sdu.dk/en/om-sdu/fakulteterne/teknik/uddannelse/ingeniorledighed'],
+  ['Aarhus University engineering salaries', 'https://ingenioer.au.dk/en/education/a-career-as-an-engineer/high-starting-salaries-for-young-engineers-in-denmark'],
+  ['Jobindex salary tool methodology', 'https://www.jobindex.dk/tjek-din-loen/engineer?lang=en'],
+  ['Levels.fyi Denmark data scientist data', 'https://www.levels.fyi/t/data-scientist/locations/denmark'],
+];
+
+const salaryRangeByPath = {
+  '/process-engineer-salary-denmark': {
+    range: '47,000–75,000 DKK / month',
+    typical: 'Around 55,000–65,000 DKK/month is a practical mid-career screening band for many Danish process roles.',
+    note: 'For process engineers, use IDA/engineering public benchmarks as the anchor, then adjust upward for pharma, GMP, production responsibility, shift/on-call expectations and Kalundborg or Greater Copenhagen demand.'
+  },
+  '/pharma-engineer-salary-denmark': {
+    range: '50,000–80,000 DKK / month',
+    typical: 'Specialist pharma engineering offers often screen well from the high-50s to low-70s before bonus and pension details.',
+    note: 'Pharma roles can sit above general engineering benchmarks because regulated manufacturing, validation, process ownership and expansion projects create strong demand.'
+  },
+  '/software-engineer-salary-copenhagen': {
+    range: '50,000–85,000 DKK / month',
+    typical: 'Senior Copenhagen software roles often need a high-50s or 60k+ gross salary to feel comfortable after rent.',
+    note: 'Software compensation varies widely by seniority, stack, company type, bonus/equity and Copenhagen housing assumptions.'
+  },
+  '/data-scientist-salary-denmark': {
+    range: '41,000–80,000 DKK / month',
+    typical: 'IDA’s public data-science graduate guidance is around 41k/month; experienced private-sector roles can move substantially higher.',
+    note: 'The lower end reflects public graduate guidance; the upper screening band is informed by public tech-compensation and STEM salary sources for experienced candidates.'
+  },
+  '/data-analyst-salary-denmark': {
+    range: '38,000–60,000 DKK / month',
+    typical: 'Many analyst offers should be tested around 42,000–55,000 DKK/month depending on industry and experience.',
+    note: 'Finance, consulting, life science and senior analytics roles may sit above entry-level analyst roles; pension and bonus can materially change total value.'
+  },
+  '/ai-engineer-salary-denmark': {
+    range: '55,000–90,000 DKK / month',
+    typical: 'For experienced AI/ML engineering, high-50s to 70k+ is a reasonable first screening band before bonus/equity.',
+    note: 'AI engineering can price closer to senior software/data engineering than entry data science, especially for production ML, cloud, MLOps or specialist research roles.'
+  },
+  '/data-engineer-salary-denmark': {
+    range: '52,000–85,000 DKK / month',
+    typical: 'Experienced cloud/data-platform roles often screen around 58,000–75,000 DKK/month.',
+    note: 'Cloud, platform ownership, data infrastructure, regulated data and on-call responsibility can move offers above generic analyst levels.'
+  },
+  '/environmental-engineer-salary-denmark': {
+    range: '43,000–70,000 DKK / month',
+    typical: 'Public-sector and consulting roles can vary; private specialist roles should often be tested in the high-40s to 60s.',
+    note: 'Use general engineering benchmarks as the anchor, then adjust for consulting, permitting, sustainability, water, energy or manufacturing specialization.'
+  },
+  '/qa-specialist-salary-denmark': {
+    range: '45,000–70,000 DKK / month',
+    typical: 'GMP QA and validation offers often screen around 50,000–62,000 DKK/month before bonus/pension differences.',
+    note: 'Regulated-industry QA salaries depend heavily on GMP depth, batch release, deviation/CAPA responsibility, audits and pharma versus non-pharma context.'
+  },
+  '/automation-engineer-salary-denmark': {
+    range: '48,000–78,000 DKK / month',
+    typical: 'Automation engineers with PLC, robotics, SCADA or manufacturing IT responsibility often warrant a 55k+ scenario check.',
+    note: 'Factory expansion, validated systems, travel, on-call duties and pharma/robotics exposure can push compensation above broad engineering benchmarks.'
+  },
+  '/mechanical-engineer-salary-denmark': {
+    range: '45,000–72,000 DKK / month',
+    typical: 'A mid-career mechanical engineering offer often belongs in the high-40s to low-60s before pension and bonus.',
+    note: 'Specialist equipment, pharma, energy, manufacturing or project responsibility can justify testing higher scenarios.'
+  },
+  '/electrical-engineer-salary-denmark': {
+    range: '47,000–78,000 DKK / month',
+    typical: 'Energy, automation and utilities roles often need scenarios around 52,000–68,000 DKK/month.',
+    note: 'Power systems, automation, commissioning, travel and regulated manufacturing can move salaries materially above junior engineer levels.'
+  },
+  '/civil-engineer-salary-denmark': {
+    range: '45,000–72,000 DKK / month',
+    typical: 'Civil engineering offers often screen from the high-40s into the low-60s depending on seniority and sector.',
+    note: 'Consulting, construction management, infrastructure, project responsibility and Copenhagen market pressure can change the offer value.'
+  },
+  '/project-manager-salary-denmark': {
+    range: '55,000–90,000 DKK / month',
+    typical: 'Experienced project managers in pharma, IT, engineering or capex should often test 65,000–80,000 DKK/month scenarios.',
+    note: 'Project size, budget ownership, people management, regulated delivery and bonus structure matter more than title alone.'
+  },
+  '/scientist-salary-denmark': {
+    range: '45,000–75,000 DKK / month',
+    typical: 'PhD-level scientist roles often need a separate scenario for researcher tax, bonus and pension assumptions.',
+    note: 'R&D, biotech, pharma, senior scientist level and researcher/key employee scheme relevance can change both salary and net-pay interpretation.'
+  },
+  '/business-analyst-salary-denmark': {
+    range: '42,000–70,000 DKK / month',
+    typical: 'Business analyst offers often screen around 45,000–60,000 DKK/month, with higher bands for finance, pharma or senior product roles.',
+    note: 'Industry, seniority, stakeholder responsibility, product ownership and bonus can matter as much as the analyst title.'
+  },
+};
+
+Object.entries(salaryRangeByPath).forEach(([path, salaryRange]) => {
+  if (staticPages[path]) staticPages[path].salaryRange = salaryRange;
+});
+
 function SiteHeader() {
   return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/guides">Guides</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
 }
@@ -618,6 +715,10 @@ function StaticPage({ page }) {
     <SiteHeader/>
     <section className="staticHero"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p className="lead">{page.description}</p></section>
     <section className="staticContent">
+      {page.salaryRange && <aside className="salaryRangePanel" aria-label="Indicative salary range">
+        <div><p className="eyebrow">Public salary data signal</p><h2>Indicative gross salary range</h2><strong>{page.salaryRange.range}</strong><p>{page.salaryRange.typical}</p><small>{page.salaryRange.note}</small></div>
+        <div className="salarySourceLinks"><b>Source basis</b>{salaryRangeSources.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label}<ChevronRight size={14}/></a>)}</div>
+      </aside>}
       {page.sections.map(([heading, body], index) => <article key={heading} className={index === 0 ? 'leadArticle' : ''}><span className="articleNumber">{String(index + 1).padStart(2, '0')}</span><h2>{heading}</h2><p>{body}</p></article>)}
       {page.faqs && <div className="staticFaqBlock"><p className="eyebrow">FAQ</p><h2>Common questions</h2>{page.faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>}
       {page.related && <div className="relatedBlock"><p className="eyebrow">Related guides</p><div>{page.related.map(([label, href]) => <a key={href} href={href}>{label}<ChevronRight size={15}/></a>)}</div></div>}

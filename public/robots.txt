@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://takehomedk.vercel.app/sitemap.xml
+Sitemap: https://takehomedk.com/sitemap.xml

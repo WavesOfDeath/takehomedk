@@ -111,7 +111,7 @@ const staticPages = {
     sections: [
       ['For corrections', 'If you spot an outdated threshold, municipality tax issue or unclear explanation, please send the page, the issue and the official source you are comparing against.'],
       ['For partnerships', 'Relevant partnerships could include relocation advisors, Danish tax specialists, accountants, unions, pension educators, recruiters and expat service providers.'],
-      ['Contact method', 'For now, use the GitHub repository for technical issues or add your preferred public contact email before applying to AdSense. Recommended production email: hello@takehomedk.com after you connect the domain.'],
+      ['Contact method', 'For technical issues and source corrections, use the GitHub repository at https://github.com/WavesOfDeath/takehomedk. Before applying to AdSense, add your preferred public email address or a working contact form so non-technical visitors can reach you easily.'],
     ],
   },
   '/privacy-policy': {
@@ -361,7 +361,13 @@ function HomePage() {
 
 function App() {
   const page = staticPages[window.location.pathname];
-  if (page) return <StaticPage page={page}/>;
+  if (page) {
+    document.title = `${page.eyebrow} — TakeHomeDK`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', page.description);
+    return <StaticPage page={page}/>;
+  }
+  document.title = 'TakeHomeDK — Denmark Salary Calculator 2026';
+  document.querySelector('meta[name="description"]')?.setAttribute('content', 'English Denmark salary, tax, Pay Limit Scheme, researcher tax and relocation calculator for expats considering Danish job offers.');
   return <HomePage/>;
 }
 

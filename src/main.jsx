@@ -36,6 +36,7 @@ const searchLandingPages = [
   ['Researcher tax scheme calculator', 'Salary and PhD/researcher status signal for international hires.', '/denmark-researcher-tax-scheme'],
   ['Denmark job offer calculator', 'Base salary, pension, bonus, tax and living costs in one view.', '/denmark-salary-calculator-2026'],
   ['Denmark cost of living calculator', 'Estimate what remains after rent and recurring monthly costs.', '/copenhagen-cost-of-living-calculator'],
+  ['Copenhagen rent guide by salary', 'Choose where to live to save more from a Danish job offer.', '/copenhagen-rent-guide-salary-location'],
 ];
 
 const salaryGuideLinks = [
@@ -66,6 +67,7 @@ const guideCategories = [
       ['Copenhagen salary calculator', 'City-specific salary and rent-pressure guide.', '/copenhagen-salary-calculator'],
       ['Kalundborg salary calculator', 'Pharma and manufacturing salary guide for West Zealand.', '/kalundborg-salary-calculator'],
       ['Copenhagen cost of living calculator', 'Budget what remains after rent and recurring costs.', '/copenhagen-cost-of-living-calculator'],
+      ['Copenhagen and Zealand rent guide', 'Compare rent ranges and savings trade-offs by job location.', '/copenhagen-rent-guide-salary-location'],
     ]
   },
   {
@@ -168,6 +170,28 @@ function ResultCard({ icon: Icon, label, value, detail, tone = '' }) {
   </div>;
 }
 
+
+const rentGuideAreas = [
+  { area: 'Copenhagen municipality', oneBed: '10,000–15,000', twoBed: '14,000–22,000', family: '18,000–30,000+', bestFor: 'Jobs in central Copenhagen, universities, hospitals, consultancies, tech offices; best when commute time matters more than maximum savings.', saveTip: 'To save, compare outer districts such as Amager, Sydhavn, Nordvest and Valby before paying inner-city prices.' },
+  { area: 'Frederiksberg', oneBed: '11,000–16,000', twoBed: '15,000–24,000', family: '20,000–32,000+', bestFor: 'High-salary Copenhagen jobs where central access, metro, schools and neighbourhood quality are important.', saveTip: 'Excellent location but rarely the cheapest choice; choose it when salary is strong or commute/family convenience is worth the premium.' },
+  { area: 'Gentofte', oneBed: '12,000–18,000', twoBed: '17,000–27,000', family: '24,000–40,000+', bestFor: 'Senior roles in north Copenhagen, families prioritising schools, space and quiet residential areas.', saveTip: 'Often expensive; if the job is not north of Copenhagen, compare Lyngby, Roskilde or outer Copenhagen before committing.' },
+  { area: 'Lyngby / Kongens Lyngby', oneBed: '10,000–15,000', twoBed: '14,000–22,000', family: '18,000–30,000', bestFor: 'DTU, pharma, engineering, biotech and north-Copenhagen office jobs with train or car access.', saveTip: 'A strong compromise when north-Copenhagen jobs are relevant: usually less central than Copenhagen/Frederiksberg but still not cheap.' },
+  { area: 'Hørsholm', oneBed: '9,500–14,000', twoBed: '13,000–20,000', family: '17,000–28,000', bestFor: 'Jobs in Hørsholm, DTU science park, life-science clusters and north Zealand families with car access.', saveTip: 'Can be good value versus Gentofte, but check transport carefully if you do not have a car.' },
+  { area: 'Roskilde', oneBed: '8,500–12,500', twoBed: '11,500–17,000', family: '15,000–24,000', bestFor: 'People working west of Copenhagen, hybrid Copenhagen workers, families wanting lower rent with train access.', saveTip: 'One of the best savings compromises for Copenhagen-area jobs if you accept the commute.' },
+  { area: 'Kalundborg', oneBed: '6,500–10,000', twoBed: '8,500–13,500', family: '11,000–18,000', bestFor: 'Pharma, process engineering, manufacturing, automation and QA jobs in Kalundborg.', saveTip: 'Usually the strongest rent-saving choice for Kalundborg jobs; avoid paying Copenhagen rent unless your personal life requires it.' },
+  { area: 'Holbæk', oneBed: '6,500–9,500', twoBed: '8,500–13,000', family: '11,000–17,000', bestFor: 'West Zealand jobs, Kalundborg-adjacent roles, families wanting lower rent and more space.', saveTip: 'Often a practical middle ground between Copenhagen prices and Kalundborg/local west-Zealand work locations.' },
+  { area: 'Odense', oneBed: '7,000–10,500', twoBed: '9,000–14,500', family: '12,000–20,000', bestFor: 'Jobs in Odense, Funen, robotics, university, healthcare, engineering and family relocation budgets.', saveTip: 'If the job is in Odense, living locally usually beats a Copenhagen-based lifestyle financially. “Oddense” is commonly spelled Odense.' },
+];
+
+const rentSourceLinks = [
+  ['Statistics Denmark rent indices', 'https://www.dst.dk/en/Statistik/emner/oekonomi/ejendomme/huslejeindeks'],
+  ['Borger.dk rental housing guidance', 'https://www.borger.dk/bolig-og-flytning/Lejebolig/Soeg-en-lejebolig'],
+  ['BoligPortal rental listings', 'https://www.boligportal.dk/'],
+  ['Lejebolig.dk rental listings', 'https://www.lejebolig.dk/'],
+  ['Wise Denmark cost-of-living guide', 'https://wise.com/gb/blog/cost-of-living-in-denmark'],
+  ['Nestpick Copenhagen rent overview', 'https://www.nestpick.com/copenhagen/'],
+];
+
 const staticPages = {
   '/about': {
     eyebrow: 'About TakeHomeDK',
@@ -211,6 +235,34 @@ const staticPages = {
       ['Source-first approach', 'Where possible, the site links to official Danish sources so users can verify the assumptions behind the calculator.'],
     ],
   },
+  '/copenhagen-rent-guide-salary-location': {
+    eyebrow: 'Copenhagen area rent guide',
+    title: 'Where to live near Copenhagen, Zealand and Odense to save the most from your salary.',
+    description: 'Compare rent ranges in Copenhagen, Frederiksberg, Gentofte, Lyngby, Hørsholm, Roskilde, Kalundborg, Holbæk and Odense before accepting a Danish job offer.',
+    rentGuide: true,
+    sections: [
+      ['The rent decision is usually the biggest salary decision', 'For many international professionals, rent is the single largest monthly cost after Danish tax. A 60,000 DKK gross salary can feel comfortable in Kalundborg, Holbæk or Odense but much tighter in central Copenhagen, Frederiksberg or Gentofte. The best place to live is therefore not always the nicest area; it is the area that fits your job location, commute tolerance, family needs and monthly savings target.'],
+      ['A practical rent rule for newcomers', 'As a first screening rule, try to keep cold rent below 30–35% of expected monthly net pay if you are single, and below 35–40% for a couple or family only when the second income or child-related needs justify it. If rent plus utilities consumes more than 45% of net pay, the offer may still work, but savings and lifestyle flexibility become much weaker.'],
+      ['How to compare locations against a job offer', 'Start with the job location, not the dream neighbourhood. If the job is in Copenhagen, compare Copenhagen, Frederiksberg, Lyngby and Roskilde. If it is north of Copenhagen, compare Lyngby, Hørsholm and Gentofte. If it is in Kalundborg or west Zealand, compare Kalundborg and Holbæk before paying Copenhagen rent. If it is in Odense, living locally is usually the simplest financial choice.'],
+      ['Important caveat about rent ranges', 'The ranges below are indicative market-screening ranges for private rental apartments and family homes. Real listings vary by size, condition, furnished status, utilities, deposit, location, lease type and whether the home is private, social housing or cooperative. Always check current listings before signing.'],
+    ],
+    faqs: [
+      ['Is Copenhagen always the best place for expats?', 'No. Copenhagen is convenient and international, but it is often the most expensive choice. If your job is in Kalundborg, Holbæk, Roskilde, Odense, Lyngby or Hørsholm, living closer to work can save a large amount every month.'],
+      ['Should I live in Copenhagen and commute to Kalundborg?', 'Usually not if your goal is to save money. Copenhagen rent plus a long commute can erase much of the value of a strong pharma or manufacturing salary. Kalundborg or Holbæk will often create a better savings profile.'],
+      ['Is Frederiksberg worth the premium?', 'Frederiksberg can be worth it for high earners who value central location, metro access and lifestyle. For maximum savings, compare outer Copenhagen, Lyngby or Roskilde before choosing Frederiksberg.'],
+      ['How should families think about rent?', 'Families should compare rent, school/daycare access, commute reliability and space together. A cheaper area that requires two cars or a painful commute may not actually be cheaper in lived reality.'],
+      ['What is the safest first move when relocating?', 'If possible, use temporary housing for the first 1–3 months. It gives you time to visit neighbourhoods, understand commute routes and avoid signing an expensive lease under pressure.'],
+    ],
+    related: [
+      ['Copenhagen cost of living calculator', '/copenhagen-cost-of-living-calculator'],
+      ['Copenhagen salary calculator', '/copenhagen-salary-calculator'],
+      ['Kalundborg salary calculator', '/kalundborg-salary-calculator'],
+      ['Denmark salary calculator 2026', '/denmark-salary-calculator-2026'],
+      ['Guides hub', '/guides'],
+    ],
+    sourceNote: 'Rent ranges are indicative planning ranges based on public rent-index context from Statistics Denmark, Danish public rental-search guidance and current market-listing portals. They are designed for salary screening, not as a guarantee that a specific listing will be available.',
+  },
+
 };
 
 const seoPages = {
@@ -778,6 +830,18 @@ function StaticPage({ page }) {
         <div className="salarySourceLinks"><b>Source basis</b>{salaryRangeSources.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label}<ChevronRight size={14}/></a>)}</div>
       </aside>}
       {page.sections.map(([heading, body], index) => <article key={heading} className={index === 0 ? 'leadArticle' : ''}><span className="articleNumber">{String(index + 1).padStart(2, '0')}</span><h2>{heading}</h2><p>{body}</p></article>)}
+      {page.rentGuide && <section className="rentGuideBlock" aria-label="Indicative rent ranges and recommendations">
+        <div className="rentGuideIntro"><p className="eyebrow">Rent ranges by area</p><h2>Indicative monthly rent ranges for salary planning</h2><p>Use the one-bedroom range for a single professional, the two-bedroom range for a couple or remote-work setup, and the family range when you need more space. Ranges are cold-rent planning bands in DKK per month.</p></div>
+        <div className="rentTableWrap"><table className="rentTable"><thead><tr><th>Area</th><th>1-bed / small flat</th><th>2-bed flat</th><th>Family home</th><th>Best fit</th><th>Money-saving recommendation</th></tr></thead><tbody>{rentGuideAreas.map(area => <tr key={area.area}><th>{area.area}</th><td>{area.oneBed}</td><td>{area.twoBed}</td><td>{area.family}</td><td>{area.bestFor}</td><td>{area.saveTip}</td></tr>)}</tbody></table></div>
+        <div className="rentDecisionGrid">
+          <article><h3>If the job is in Copenhagen or Frederiksberg</h3><p>For maximum convenience, live in Copenhagen or Frederiksberg. For better savings, compare outer Copenhagen, Lyngby and Roskilde. Roskilde can be a strong compromise if the train commute is acceptable and your role is hybrid.</p></article>
+          <article><h3>If the job is in Gentofte, Lyngby or Hørsholm</h3><p>Start with Lyngby and Hørsholm, then compare Gentofte only if the salary is strong or family/neighbourhood priorities justify the premium. Without a car, check door-to-door public transport before choosing a cheaper area.</p></article>
+          <article><h3>If the job is in Kalundborg or Holbæk</h3><p>To save as much money as possible, live in Kalundborg, Holbæk or nearby west-Zealand towns. A Copenhagen lifestyle can cost 6,000–15,000 DKK more per month in rent and transport pressure.</p></article>
+          <article><h3>If the job is in Odense</h3><p>Living in Odense is usually the best financial default. You keep city convenience while avoiding Copenhagen-level rent. Only pay Copenhagen prices if your household has a second job, family reason or hybrid split that requires it.</p></article>
+        </div>
+        <div className="salaryDecisionBlock"><p className="eyebrow">Salary-based recommendation</p><h2>Where to live by gross monthly salary</h2><ul><li><b>Under 45,000 DKK/month:</b> avoid central Copenhagen unless sharing. Prioritise Odense, Holbæk, Kalundborg, Roskilde or a room/shared flat.</li><li><b>45,000–60,000 DKK/month:</b> Copenhagen can work for singles, but savings improve sharply in Roskilde, Lyngby, Holbæk, Kalundborg or Odense.</li><li><b>60,000–80,000 DKK/month:</b> Copenhagen, Frederiksberg or Lyngby become realistic; choose cheaper areas if your goal is aggressive saving or home-deposit building.</li><li><b>80,000+ DKK/month:</b> you can pay for convenience in Frederiksberg, Gentofte or central Copenhagen, but still compare the monthly savings from living near the job.</li></ul></div>
+        <div className="salarySourceLinks rentSources"><b>Source basis</b>{rentSourceLinks.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label}<ChevronRight size={14}/></a>)}</div>
+      </section>}
       {page.faqs && <div className="staticFaqBlock"><p className="eyebrow">FAQ</p><h2>Common questions</h2>{page.faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>}
       {page.related && <div className="relatedBlock"><p className="eyebrow">Related guides</p><div>{page.related.map(([label, href]) => <a key={href} href={href}>{label}<ChevronRight size={15}/></a>)}</div></div>}
       {page.sourceNote && <aside className="sourceNote"><b>Source and accuracy note</b><p>{page.sourceNote}</p></aside>}

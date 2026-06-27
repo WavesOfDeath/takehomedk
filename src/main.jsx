@@ -54,6 +54,61 @@ const salaryGuideLinks = [
   ['Business analyst salary Denmark', '/business-analyst-salary-denmark'],
 ];
 
+
+const guideCategories = [
+  {
+    eyebrow: 'Start here',
+    title: 'Core Denmark offer calculators',
+    description: 'Use these pages first when you need to understand Danish take-home pay, taxes, pension value, work-permit salary thresholds and monthly budget pressure.',
+    links: [
+      ['Denmark salary calculator 2026', 'Full after-tax offer calculator for expats.', '/denmark-salary-calculator-2026'],
+      ['Copenhagen salary calculator', 'City-specific salary and rent-pressure guide.', '/copenhagen-salary-calculator'],
+      ['Kalundborg salary calculator', 'Pharma and manufacturing salary guide for West Zealand.', '/kalundborg-salary-calculator'],
+      ['Copenhagen cost of living calculator', 'Budget what remains after rent and recurring costs.', '/copenhagen-cost-of-living-calculator'],
+    ]
+  },
+  {
+    eyebrow: 'Visa and tax',
+    title: 'Work-permit and Danish tax guides',
+    description: 'Pages for candidates who need to understand whether an offer is high enough for immigration routes and how Danish tax layers affect the real result.',
+    links: [
+      ['Pay Limit Scheme checker 2026', 'Screen offers against the 2026 salary threshold.', '/denmark-pay-limit-scheme-checker-2026'],
+      ['Researcher tax scheme guide', 'Understand salary and researcher/key employee scheme signals.', '/denmark-researcher-tax-scheme'],
+      ['Denmark tax guide for expats 2026', 'Plain-English AM-bidrag, municipal tax and pension guide.', '/denmark-tax-guide-expats-2026'],
+    ]
+  },
+  {
+    eyebrow: 'Life science and engineering',
+    title: 'Engineering and pharma salary guides',
+    description: 'Role-specific pages for expats comparing Danish engineering, pharma, QA, automation and scientist offers.',
+    links: [
+      ['Process engineer salary Denmark', 'Pharma, energy and production offer guide.', '/process-engineer-salary-denmark'],
+      ['Pharma engineer salary Denmark', 'Life-science engineering salary and pension guide.', '/pharma-engineer-salary-denmark'],
+      ['QA specialist salary Denmark', 'GMP, validation and regulated-industry salary guide.', '/qa-specialist-salary-denmark'],
+      ['Automation engineer salary Denmark', 'PLC, robotics and manufacturing IT salary guide.', '/automation-engineer-salary-denmark'],
+      ['Environmental engineer salary Denmark', 'Sustainability, consulting and permitting salary guide.', '/environmental-engineer-salary-denmark'],
+      ['Mechanical engineer salary Denmark', 'Manufacturing, energy and equipment salary guide.', '/mechanical-engineer-salary-denmark'],
+      ['Electrical engineer salary Denmark', 'Energy, automation and utilities salary guide.', '/electrical-engineer-salary-denmark'],
+      ['Civil engineer salary Denmark', 'Construction, infrastructure and consulting salary guide.', '/civil-engineer-salary-denmark'],
+      ['Scientist salary Denmark', 'R&D, biotech and PhD-level offer guide.', '/scientist-salary-denmark'],
+    ]
+  },
+  {
+    eyebrow: 'Tech and business',
+    title: 'Tech, data and business salary guides',
+    description: 'Guides for international candidates evaluating Danish data, AI, software, project and business roles.',
+    links: [
+      ['Data scientist salary Denmark', 'Tax, pension, bonus and work-permit context.', '/data-scientist-salary-denmark'],
+      ['Data analyst salary Denmark', 'Analytics salary and cost-of-living guide.', '/data-analyst-salary-denmark'],
+      ['AI engineer salary Denmark', 'AI/ML salary, relocation and tax guide.', '/ai-engineer-salary-denmark'],
+      ['Data engineer salary Denmark', 'Cloud, platform and data infrastructure guide.', '/data-engineer-salary-denmark'],
+      ['Software engineer salary Copenhagen', 'Copenhagen tech salary and living-budget guide.', '/software-engineer-salary-copenhagen'],
+      ['Project manager salary Denmark', 'Capex, IT and delivery manager salary guide.', '/project-manager-salary-denmark'],
+      ['Business analyst salary Denmark', 'Business, finance and consulting salary guide.', '/business-analyst-salary-denmark'],
+    ]
+  }
+];
+
 const faqs = [
   ['Is this an official Danish tax calculation?', 'No. TakeHomeDK is an offer-screening calculator based on published rules and transparent assumptions. Use SKAT, SIRI or a qualified advisor before making legal, tax or immigration decisions.'],
   ['Does employer pension count as take-home pay?', 'No. Employer pension is shown as compensation value, but it is not included in monthly cash take-home pay. The Pay Limit Scheme screen models it separately because some pension components may count toward the threshold.'],
@@ -551,11 +606,11 @@ const enhancedSeoPages = {
 Object.assign(staticPages, enhancedSeoPages);
 
 function SiteHeader() {
-  return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
+  return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/guides">Guides</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
 }
 
 function SiteFooter() {
-  return <footer><div><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p><div className="footerLinks"><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy</a><a href="/disclaimer">Disclaimer</a></div></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>;
+  return <footer><div><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p><div className="footerLinks"><a href="/guides">Guides</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy</a><a href="/disclaimer">Disclaimer</a></div></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>;
 }
 
 function StaticPage({ page }) {
@@ -568,6 +623,39 @@ function StaticPage({ page }) {
       {page.related && <div className="relatedBlock"><p className="eyebrow">Related guides</p><div>{page.related.map(([label, href]) => <a key={href} href={href}>{label}<ChevronRight size={15}/></a>)}</div></div>}
       {page.sourceNote && <aside className="sourceNote"><b>Source and accuracy note</b><p>{page.sourceNote}</p></aside>}
       <div className="staticCta"><a className="primary" href="/#calculator">Use the calculator <ArrowRight size={18}/></a><a className="secondary" href="/disclaimer">Read disclaimer</a></div>
+    </section>
+    <SiteFooter/>
+  </main>;
+}
+
+
+function GuidesPage() {
+  document.title = 'Denmark salary and tax guides for expats — TakeHomeDK';
+  document.querySelector('meta[name="description"]')?.setAttribute('content', 'Browse TakeHomeDK guides for Denmark salary calculators, job-title salary pages, tax explanations, Pay Limit Scheme checks and Copenhagen living-cost planning.');
+  const totalGuides = guideCategories.reduce((sum, category) => sum + category.links.length, 0);
+  return <main>
+    <SiteHeader/>
+    <section className="guidesHero">
+      <p className="eyebrow">TakeHomeDK guide hub</p>
+      <h1>Denmark salary, tax and job-offer guides for expats.</h1>
+      <p className="lead">Browse every TakeHomeDK guide from one page: core salary calculators, city pages, visa-threshold checks, tax explainers and job-title salary guides for international professionals considering Denmark.</p>
+      <div className="guideHubStats"><span><b>{totalGuides}</b> guides</span><span><b>4</b> categories</span><span><b>2026</b> tax year focus</span></div>
+      <div className="staticCta"><a className="primary" href="/#calculator">Use the calculator <ArrowRight size={18}/></a><a className="secondary" href="/denmark-salary-calculator-2026">Start with salary guide</a></div>
+    </section>
+    <section className="guidesIndex" aria-label="All TakeHomeDK guides">
+      {guideCategories.map(category => <article className="guideCategory" key={category.title}>
+        <div className="guideCategoryIntro"><p className="eyebrow">{category.eyebrow}</p><h2>{category.title}</h2><p>{category.description}</p></div>
+        <div className="guideLinkList">{category.links.map(([title, description, href]) => <a key={href} href={href}><span><b>{title}</b><small>{description}</small></span><ChevronRight size={17}/></a>)}</div>
+      </article>)}
+    </section>
+    <section className="guidesHowTo">
+      <div><p className="eyebrow">How to use these guides</p><h2>Recommended order for checking a Danish job offer</h2></div>
+      <ol>
+        <li><b>Calculate take-home pay.</b><span>Start with the Denmark salary calculator and enter gross salary, pension, bonus and municipality.</span></li>
+        <li><b>Check visa and tax risk.</b><span>If you are non-EU or highly paid, review the Pay Limit Scheme and researcher tax pages.</span></li>
+        <li><b>Compare the role page.</b><span>Open the job-title guide closest to your offer and use its negotiation checklist.</span></li>
+        <li><b>Stress-test living costs.</b><span>Run a conservative Copenhagen or city budget before signing or relocating.</span></li>
+      </ol>
     </section>
     <SiteFooter/>
   </main>;
@@ -753,7 +841,7 @@ function HomePage() {
     </section>
 
     <section className="landingSection">
-      <div className="sectionIntro"><p className="eyebrow">Find the right calculator</p><h2>Popular Denmark salary questions this page answers</h2><p>These topic tiles make the site easier to scan and create a clear roadmap for future dedicated SEO pages.</p></div>
+      <div className="sectionIntro"><p className="eyebrow">Find the right calculator</p><h2>Popular Denmark salary questions this page answers</h2><p>These topic tiles make the site easier to scan. For the full index, open the <a href="/guides">TakeHomeDK guides hub</a>.</p></div>
       <div className="landingGrid">{searchLandingPages.map(([title, description, href]) => <a className="landingTile" key={title} href={href}><h3>{title}</h3><p>{description}</p><span>Read guide <ChevronRight size={15}/></span></a>)}</div>
     </section>
 
@@ -788,6 +876,7 @@ function HomePage() {
 }
 
 function App() {
+  if (window.location.pathname === '/guides') return <GuidesPage/>;
   const page = staticPages[window.location.pathname];
   if (page) {
     document.title = `${page.eyebrow} — TakeHomeDK`;

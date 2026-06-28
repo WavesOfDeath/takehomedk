@@ -1,6 +1,6 @@
 import React, { useId, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowRight, BadgeCheck, Building2, Calculator, ChevronRight, CircleDollarSign, ClipboardCheck, Copy, FileText, Globe2, Landmark, Mail, Plane, ShieldCheck, Sparkles, TrendingUp, WalletCards } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Building2, Calculator, ChevronRight, CircleDollarSign, ClipboardCheck, Copy, FileText, Globe2, Landmark, Lock, Mail, Plane, ShieldCheck, Sparkles, TrendingUp, WalletCards } from 'lucide-react';
 import './styles.css';
 
 const municipalities = [
@@ -27,6 +27,7 @@ const sources = [
   ['SKAT 2026 tax brackets', 'https://skat.dk/en-us/help/botton-bracket-middle-bracket-top-bracket-and-additional-top-bracket-tax'],
   ['Researcher / key employee tax scheme', 'https://skat.dk/en-us/businesses/employees-and-pay/non-danish-labour/tax-scheme-for-researchers'],
   ['Pay Limit Scheme 2026', 'https://www.nyidanmark.dk/pl-PL/You-want-to-apply/Work/Pay-limit-scheme'],
+  ['SIRI Pay Limit Scheme requirements', 'https://www.nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme'],
 ];
 
 const searchLandingPages = [
@@ -79,6 +80,7 @@ const guideCategories = [
       ['Pay Limit Scheme checker 2026', 'Screen offers against the 2026 salary threshold.', '/denmark-pay-limit-scheme-checker-2026'],
       ['Researcher tax scheme guide', 'Understand salary and researcher/key employee scheme signals.', '/denmark-researcher-tax-scheme'],
       ['Denmark tax guide for expats 2026', 'Plain-English AM-bidrag, municipal tax and pension guide.', '/denmark-tax-guide-expats-2026'],
+      ['How the calculator works', 'Transparent methodology, assumptions and limitations.', '/how-calculator-works'],
     ]
   },
   {
@@ -195,6 +197,7 @@ const rentSourceLinks = [
 const staticPages = {
   '/about': {
     eyebrow: 'About TakeHomeDK',
+    seoTitle: 'About TakeHomeDK — Denmark Salary Tools for Expats',
     title: 'A clearer way to evaluate a Danish job offer.',
     description: 'TakeHomeDK helps international professionals understand Danish salary offers before they relocate, negotiate or accept a role.',
     sections: [
@@ -205,6 +208,7 @@ const staticPages = {
   },
   '/contact': {
     eyebrow: 'Contact',
+    seoTitle: 'Contact TakeHomeDK — Corrections, Questions and Partnerships',
     title: 'Contact TakeHomeDK.',
     description: 'Questions, corrections and source updates help make the calculator more useful and accurate.',
     sections: [
@@ -215,6 +219,7 @@ const staticPages = {
   },
   '/privacy-policy': {
     eyebrow: 'Privacy policy',
+    seoTitle: 'Privacy Policy — TakeHomeDK',
     title: 'Privacy Policy.',
     description: 'This page explains how TakeHomeDK handles calculator inputs, hosting logs and Google Analytics traffic measurement.',
     sections: [
@@ -226,6 +231,7 @@ const staticPages = {
   },
   '/disclaimer': {
     eyebrow: 'Disclaimer',
+    seoTitle: 'Disclaimer — Salary and Tax Estimates',
     title: 'Important tax, immigration and financial disclaimer.',
     description: 'TakeHomeDK is a calculator for orientation and education, not a substitute for official decisions or professional advice.',
     sections: [
@@ -235,8 +241,32 @@ const staticPages = {
       ['Source-first approach', 'Where possible, the site links to official Danish sources so users can verify the assumptions behind the calculator.'],
     ],
   },
+  '/how-calculator-works': {
+    eyebrow: 'How the calculator works',
+    seoTitle: 'How the Calculator Works — TakeHomeDK Methodology',
+    title: 'How the Denmark salary calculator works.',
+    description: 'A transparent methodology page explaining AM-bidrag, municipal tax, pension handling, tax-card assumptions, bonus treatment and Pay Limit Scheme screening.',
+    sections: [
+      ['AM-bidrag labour market contribution', 'The calculator applies an 8% labour market contribution before the ordinary income-tax layers in the simplified model. This is shown separately because it is one of the first deductions expats notice when comparing gross and net salary.'],
+      ['Municipal tax explanation', 'Municipal tax depends on where you live. The calculator includes municipality presets such as Copenhagen, Frederiksberg, Aarhus, Odense, Aalborg, Kalundborg, Gentofte and Roskilde so users can compare how the same salary changes by location.'],
+      ['Pension handling', 'Employee pension reduces monthly cash in the model. Employer pension is shown as additional annual compensation value but is not counted as monthly take-home cash, because it is normally paid into a pension scheme rather than into your bank account.'],
+      ['Personal allowance and tax-card assumptions', 'The monthly deduction input is a simplified way to approximate tax-card deductions, personal allowance effects, commuting deductions or other individual deductions. Real tax cards are personal, so the calculator should be treated as a planning estimate, not a final SKAT assessment.'],
+      ['Bonus assumptions', 'Annual bonus is treated as cash income for tax-screening purposes in the model. Because real bonus may be guaranteed, discretionary, pro-rated, delayed or paid under different contract terms, users should test both with-bonus and no-bonus scenarios before accepting an offer.'],
+      ['Pay Limit Scheme calculation', 'The Pay Limit Scheme card screens whether modelled counted compensation reaches the 2026 minimum of DKK 552,000 per year, equivalent to DKK 46,000 per month. The calculator uses cash salary, modelled employer pension and annual bonus as a screening estimate, but SIRI decides which components count in a real application.'],
+      ['Known limitations', 'TakeHomeDK does not know your official tax card, full deductions, exact pension contract, holiday allowance details, benefits, relocation package, family situation or final immigration interpretation. It is designed to identify questions and compare scenarios before you verify details with SKAT, SIRI, your employer or a qualified advisor.'],
+    ],
+    related: [
+      ['Denmark salary calculator 2026', '/denmark-salary-calculator-2026'],
+      ['Denmark tax guide for expats', '/denmark-tax-guide-expats-2026'],
+      ['Pay Limit Scheme checker', '/denmark-pay-limit-scheme-checker-2026'],
+      ['Disclaimer', '/disclaimer'],
+    ],
+    sourceNote: 'This methodology is based on public Danish tax and immigration sources linked on TakeHomeDK, including SKAT guidance and SIRI Pay Limit Scheme information. It is intentionally conservative and explanatory rather than a substitute for official advice.',
+  },
+
   '/copenhagen-rent-guide-salary-location': {
     eyebrow: 'Copenhagen area rent guide',
+    seoTitle: 'Copenhagen Rent Guide 2026 — Where to Live by Salary and Job Location',
     title: 'Where to live near Copenhagen, Zealand and Odense to save the most from your salary.',
     description: 'Compare rent ranges in Copenhagen, Frederiksberg, Gentofte, Lyngby, Hørsholm, Roskilde, Kalundborg, Holbæk and Odense before accepting a Danish job offer.',
     rentGuide: true,
@@ -661,6 +691,34 @@ const enhancedSeoPages = {
 
 Object.assign(staticPages, enhancedSeoPages);
 
+const seoTitleByPath = {
+  '/denmark-salary-calculator-2026': 'Denmark Salary Calculator 2026 — Net Pay and Pension',
+  '/copenhagen-salary-calculator': 'Copenhagen Salary Calculator 2026 — Net Pay & Living Costs',
+  '/kalundborg-salary-calculator': 'Kalundborg Salary Calculator 2026 — Pharma Net Pay Guide',
+  '/denmark-pay-limit-scheme-checker-2026': 'Denmark Pay Limit Scheme Checker 2026 — Salary Threshold',
+  '/denmark-researcher-tax-scheme': 'Denmark Researcher Tax Scheme 2026 — Salary and Eligibility Signals',
+  '/copenhagen-cost-of-living-calculator': 'Copenhagen Cost of Living Calculator 2026 — Salary Budget',
+  '/denmark-tax-guide-expats-2026': 'Denmark Tax Guide for Expats 2026 — Salary, Pension and AM-bidrag',
+  '/process-engineer-salary-denmark': 'Process Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/pharma-engineer-salary-denmark': 'Pharma Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/software-engineer-salary-copenhagen': 'Software Engineer Salary Copenhagen 2026 — Net Pay Calculator',
+  '/data-scientist-salary-denmark': 'Data Scientist Salary Denmark 2026 — Net Pay Calculator',
+  '/data-analyst-salary-denmark': 'Data Analyst Salary Denmark 2026 — Net Pay Calculator',
+  '/ai-engineer-salary-denmark': 'AI Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/data-engineer-salary-denmark': 'Data Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/environmental-engineer-salary-denmark': 'Environmental Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/qa-specialist-salary-denmark': 'QA Specialist Salary Denmark 2026 — Net Pay Calculator',
+  '/automation-engineer-salary-denmark': 'Automation Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/mechanical-engineer-salary-denmark': 'Mechanical Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/electrical-engineer-salary-denmark': 'Electrical Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/civil-engineer-salary-denmark': 'Civil Engineer Salary Denmark 2026 — Net Pay Calculator',
+  '/project-manager-salary-denmark': 'Project Manager Salary Denmark 2026 — Net Pay Calculator',
+  '/scientist-salary-denmark': 'Scientist Salary Denmark 2026 — Net Pay Calculator',
+  '/business-analyst-salary-denmark': 'Business Analyst Salary Denmark 2026 — Net Pay Calculator',
+};
+Object.entries(seoTitleByPath).forEach(([path, seoTitle]) => {
+  if (staticPages[path]) staticPages[path].seoTitle = seoTitle;
+});
 
 const salaryRangeSources = [
   ['IDA Salary Statistics', 'https://ida.dk/en/career-and-legal-advice/salary/idas-salary-statistics'],
@@ -759,11 +817,11 @@ Object.entries(salaryRangeByPath).forEach(([path, salaryRange]) => {
 });
 
 function SiteHeader() {
-  return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/guides">Guides</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
+  return <header className="nav"><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><nav><a href="/#calculator">Calculator</a><a href="/guides">Guides</a><a href="/how-calculator-works">How it works</a><a href="/#visa">Visa</a><a href="/#guide">Tax guide</a><a href="/#sources">Sources</a><a href="/about">About</a></nav></header>;
 }
 
 function SiteFooter() {
-  return <footer><div><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p><div className="footerLinks"><a href="/guides">Guides</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy</a><a href="/disclaimer">Disclaimer</a></div></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>;
+  return <footer><div><a className="brand" href="/"><span>TakeHome</span><b>DK</b></a><p>Built as a transparent English Denmark salary, tax, visa-threshold and relocation calculator for expats.</p><div className="footerLinks"><a href="/guides">Guides</a><a href="/how-calculator-works">How it works</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy</a><a href="/disclaimer">Disclaimer</a></div></div><p>Last updated: 2026 tax-year prototype · Estimates only · Not tax or immigration advice.</p></footer>;
 }
 
 
@@ -1018,9 +1076,9 @@ function HomePage() {
     <section id="top" className="hero">
       <div className="heroText">
         <div className="kicker"><Sparkles size={16}/> Denmark job-offer intelligence for expats · 2026</div>
-        <h1>Know what a Danish salary really means before you accept the offer.</h1>
-        <p className="lead">Enter a Copenhagen, Kalundborg, Aarhus or Odense job offer and estimate take-home pay, pension, work-permit salary threshold, researcher tax signal and monthly relocation budget.</p>
-        <div className="heroActions"><a className="primary" href="#calculator">Calculate take-home pay <ArrowRight size={18}/></a><a className="secondary" href="#guide">Read assumptions</a></div>
+        <h1>Calculate your real take-home salary in Denmark before accepting a job offer.</h1>
+        <p className="lead">Estimate net salary, pension, taxes, Pay Limit Scheme margin, and leftover money after Copenhagen living costs.</p>
+        <div className="heroActions"><a className="primary" href="#calculator">Calculate take-home pay <ArrowRight size={18}/></a><a className="secondary" href="/how-calculator-works">How the calculator works</a></div>
       </div>
       <div className="offerSlip" aria-label="Sample payslip preview">
         <div className="slipHead"><span>Offer scan</span><b>{selectedMunicipality.code} · 2026</b></div>
@@ -1034,9 +1092,9 @@ function HomePage() {
     </section>
 
     <section className="trustStrip">
-      <div><Landmark/><b>2026 tax brackets</b><span>AM-bidrag, bottom, middle, top and additional top-bracket logic.</span></div>
-      <div><Plane/><b>Visa salary check</b><span>Pay Limit Scheme threshold screen using counted compensation.</span></div>
-      <div><BadgeCheck/><b>Researcher scheme signal</b><span>Salary and PhD/researcher prompts for high-value expat roles.</span></div>
+      <div><Landmark/><b>2026 Danish tax rules</b><span>AM-bidrag, municipal tax and salary-threshold assumptions are visible and source-linked.</span></div>
+      <div><Plane/><b>Built for expats</b><span>Designed for international candidates comparing Danish salary, pension, visa and rent pressure.</span></div>
+      <div><Lock/><b>No CPR or personal data required</b><span>Inputs run in your browser; no account, CPR number or confidential personal details needed.</span></div>
     </section>
 
     <section id="calculator" className="calculatorShell">
@@ -1163,7 +1221,7 @@ function App() {
   if (page) {
     const path = window.location.pathname;
     updateSeo({
-      title: `${page.eyebrow} — TakeHomeDK`,
+      title: page.seoTitle || `${page.eyebrow} — TakeHomeDK`,
       description: page.description,
       path,
       type: 'article',
@@ -1173,8 +1231,8 @@ function App() {
     return <StaticPage page={page}/>;
   }
   updateSeo({
-    title: 'TakeHomeDK — Denmark Salary Calculator 2026',
-    description: 'English Denmark salary, tax, Pay Limit Scheme, researcher tax and relocation calculator for expats considering Danish job offers.',
+    title: 'Denmark Salary Calculator 2026 — Net Pay, Tax and Rent Budget',
+    description: 'Calculate your real take-home salary in Denmark before accepting a job offer, including tax, pension, Pay Limit Scheme margin and Copenhagen living costs.',
     path: '/',
     breadcrumbs: [{ name: 'Home', path: '/' }]
   });

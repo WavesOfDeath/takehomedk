@@ -133,6 +133,26 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function trackEvent(eventName, params = {}) {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+  window.gtag('event', eventName, {
+    event_category: 'calculator',
+    ...params,
+  });
+}
+
+function valueBucket(value, step = 5000) {
+  const numeric = Number(value) || 0;
+  const lower = Math.floor(numeric / step) * step;
+  const upper = lower + step;
+  return `${lower}-${upper}`;
+}
+
+function percentBucket(value) {
+  const numeric = Number(value) || 0;
+  return `${Math.floor(numeric)}%`;
+}
+
 function calculateTax({ grossMonthly, municipalityTax, pensionPct, employeePensionPct, churchTax, deductionMonthly, bonusAnnual }) {
   const annualGross = grossMonthly * 12 + bonusAnnual;
   const employeePension = annualGross * (employeePensionPct / 100);
@@ -154,15 +174,22 @@ function calculateTax({ grossMonthly, municipalityTax, pensionPct, employeePensi
   return { annualGross, employeePension, employerPension, taxableBeforeAM, amBidrag, afterAM, taxableIncome, municipalTax, church, bottomTax, middleTax, topTax, extraTopTax, totalTax, annualNet, monthlyNet: annualNet / 12, effectiveTax: annualGross ? totalTax / annualGross : 0 };
 }
 
-function SliderInput({ label, value, setValue, min, max, step = 1000, suffix = 'DKK', hint }) {
+function SliderInput({ label, value, setValue, min, max, step = 1000, suffix = 'DKK', hint, analyticsName, analyticsBucket = valueBucket }) {
   const id = useId();
   const numericId = `${id}-number`;
   const rangeId = `${id}-range`;
   const onChange = e => setValue(Number(e.target.value));
+  const trackChange = () => {
+    if (!analyticsName) return;
+    trackEvent('calculator_input_changed', {
+      input_name: analyticsName,
+      input_bucket: analyticsBucket(value),
+    });
+  };
   return <div className="control">
     <label htmlFor={numericId}><b>{label}</b><em>{hint}</em></label>
-    <div className="inputRow"><input id={numericId} type="number" value={value} onChange={onChange}/><small>{suffix}</small></div>
-    <input id={rangeId} aria-label={`${label} slider`} className="range" type="range" min={min} max={max} step={step} value={clamp(value, min, max)} onChange={onChange}/>
+    <div className="inputRow"><input id={numericId} type="number" value={value} onChange={onChange} onBlur={trackChange}/><small>{suffix}</small></div>
+    <input id={rangeId} aria-label={`${label} slider`} className="range" type="range" min={min} max={max} step={step} value={clamp(value, min, max)} onChange={onChange} onMouseUp={trackChange} onTouchEnd={trackChange} onKeyUp={trackChange}/>
   </div>;
 }
 
@@ -1036,9 +1063,20 @@ function HomePage() {
     ['Church tax estimate', calc.church],
   ].filter(([, value]) => value > 1);
 
+  function trackCalculatorStarted(source) {
+    trackEvent('calculator_started', {
+      source,
+      path: window.location.pathname,
+    });
+  }
+
   function usePreset(city) {
-    const m = municipalities.find(x => x.name === city);
+    const m = municipalities.find(x => x.name === city) || municipalities[0];
     setMunicipality(city); setRent(m.rent);
+    trackEvent('municipality_changed', {
+      municipality: city,
+      rent_bucket: valueBucket(m.rent, 2500),
+    });
   }
 
   function applyProfessionPreset(preset) {
@@ -1048,10 +1086,21 @@ function HomePage() {
     setEmployerPensionPct(preset.employerPension);
     setEmployeePensionPct(preset.employeePension);
     usePreset(preset.municipality);
+    trackEvent('profession_preset_loaded', {
+      profession: preset.role,
+      municipality: preset.municipality,
+      salary_bucket: valueBucket(preset.salary),
+    });
     document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function copySummary() {
+    trackEvent('copy_summary_clicked', {
+      municipality,
+      salary_bucket: valueBucket(grossMonthly),
+      pay_limit_passed: payLimitOk ? 'yes' : 'no',
+      disposable_bucket: valueBucket(disposable, 5000),
+    });
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
     try {
@@ -1078,7 +1127,7 @@ function HomePage() {
         <div className="kicker"><Sparkles size={16}/> Denmark job-offer intelligence for expats · 2026</div>
         <h1>Calculate your real take-home salary in Denmark before accepting a job offer.</h1>
         <p className="lead">Estimate net salary, pension, taxes, Pay Limit Scheme margin, and leftover money after Copenhagen living costs.</p>
-        <div className="heroActions"><a className="primary" href="#calculator">Calculate take-home pay <ArrowRight size={18}/></a><a className="secondary" href="/how-calculator-works">How the calculator works</a></div>
+        <div className="heroActions"><a className="primary" href="#calculator" onClick={() => trackCalculatorStarted('hero_cta')}>Calculate take-home pay <ArrowRight size={18}/></a><a className="secondary" href="/how-calculator-works">How the calculator works</a></div>
       </div>
       <div className="offerSlip" aria-label="Sample payslip preview">
         <div className="slipHead"><span>Offer scan</span><b>{selectedMunicipality.code} · 2026</b></div>
@@ -1101,11 +1150,11 @@ function HomePage() {
       <div className="sectionIntro"><p className="eyebrow">Core calculator</p><h2>Denmark salary after tax calculator 2026</h2><p>Designed around real job-offer decisions: salary, pension, bonus, tax municipality and living costs are shown together instead of as isolated numbers.</p></div>
       <div className="calcGrid">
         <form className="panel controls" aria-label="Denmark salary calculator inputs" onSubmit={e => e.preventDefault()}>
-          <SliderInput label="Gross monthly salary" value={grossMonthly} setValue={setGrossMonthly} min={25000} max={180000} step={1000} hint="Before tax, excluding employer pension" />
+          <SliderInput label="Gross monthly salary" value={grossMonthly} setValue={setGrossMonthly} min={25000} max={180000} step={1000} hint="Before tax, excluding employer pension" analyticsName="gross_monthly_salary" />
           <div className="control"><label htmlFor="municipality"><b>Municipality</b><em>Municipal tax varies across Denmark</em></label><select id="municipality" value={municipality} onChange={e => usePreset(e.target.value)}>{municipalities.map(m => <option key={m.name}>{m.name}</option>)}</select></div>
-          <div className="split"><SliderInput label="Employer pension" value={employerPensionPct} setValue={setEmployerPensionPct} min={0} max={20} step={1} suffix="%" hint="Often 8–12%"/><SliderInput label="Employee pension" value={employeePensionPct} setValue={setEmployeePensionPct} min={0} max={12} step={1} suffix="%" hint="Often 4–6%"/></div>
-          <div className="split"><SliderInput label="Annual bonus" value={bonusAnnual} setValue={setBonusAnnual} min={0} max={300000} step={5000} hint="Guaranteed or expected"/><SliderInput label="Monthly deduction" value={deductionMonthly} setValue={setDeductionMonthly} min={0} max={18000} step={500} hint="Approx. tax-card deductions"/></div>
-          <label className="toggle"><input type="checkbox" checked={churchTax} onChange={e => setChurchTax(e.target.checked)}/><span>Include church tax estimate</span></label>
+          <div className="split"><SliderInput label="Employer pension" value={employerPensionPct} setValue={setEmployerPensionPct} min={0} max={20} step={1} suffix="%" hint="Often 8–12%" analyticsName="employer_pension" analyticsBucket={percentBucket}/><SliderInput label="Employee pension" value={employeePensionPct} setValue={setEmployeePensionPct} min={0} max={12} step={1} suffix="%" hint="Often 4–6%" analyticsName="employee_pension" analyticsBucket={percentBucket}/></div>
+          <div className="split"><SliderInput label="Annual bonus" value={bonusAnnual} setValue={setBonusAnnual} min={0} max={300000} step={5000} hint="Guaranteed or expected" analyticsName="annual_bonus" /><SliderInput label="Monthly deduction" value={deductionMonthly} setValue={setDeductionMonthly} min={0} max={18000} step={500} hint="Approx. tax-card deductions" analyticsName="monthly_deduction" analyticsBucket={(value) => valueBucket(value, 1000)}/></div>
+          <label className="toggle"><input type="checkbox" checked={churchTax} onChange={e => { setChurchTax(e.target.checked); trackEvent('church_tax_toggled', { enabled: e.target.checked ? 'yes' : 'no' }); }}/><span>Include church tax estimate</span></label>
         </form>
         <div className="results" aria-live="polite">
           <ResultCard icon={WalletCards} label="Monthly take-home" value={formatDKK(calc.monthlyNet)} detail="Estimated average net income after income taxes, AM-bidrag and employee pension." tone="heroResult"/>
@@ -1146,15 +1195,15 @@ function HomePage() {
       </div>
       <div className="decisionCard">
         <p className="eyebrow">Researcher / key employee</p><h3>Researcher tax scheme signal</h3>
-        <label className="checkRow"><input type="checkbox" checked={phd} onChange={e => setPhd(e.target.checked)}/><span>I have a PhD-level/research qualification or a research appointment.</span></label>
+        <label className="checkRow"><input type="checkbox" checked={phd} onChange={e => { setPhd(e.target.checked); trackEvent('researcher_qualification_toggled', { enabled: e.target.checked ? 'yes' : 'no' }); }}/><span>I have a PhD-level/research qualification or a research appointment.</span></label>
         <p className="verdict">{researcherVerdict}</p>
         <ul><li>Highly paid employees: salary signal at {formatDKK(65400)} per month for 2026.</li><li>Researchers: qualification and approval rules matter more than only salary.</li><li>Always verify prior Danish tax liability and employment conditions.</li></ul>
       </div>
       <div className="decisionCard budgetCard">
         <p className="eyebrow">Monthly budget inputs</p><h3>Copenhagen cost-of-living calculator</h3>
         <p>Adjust rent and recurring costs here first; the leftover result below updates from these inputs.</p>
-        <SliderInput label="Monthly rent" value={rent} setValue={setRent} min={5000} max={35000} step={500} hint="Housing + common charges"/>
-        <SliderInput label="Other monthly costs" value={living} setValue={setLiving} min={4000} max={30000} step={500} hint="Food, transport, utilities, phone, insurance"/>
+        <SliderInput label="Monthly rent" value={rent} setValue={setRent} min={5000} max={35000} step={500} hint="Housing + common charges" analyticsName="monthly_rent" analyticsBucket={(value) => valueBucket(value, 2500)}/>
+        <SliderInput label="Other monthly costs" value={living} setValue={setLiving} min={4000} max={30000} step={500} hint="Food, transport, utilities, phone, insurance" analyticsName="other_monthly_costs" analyticsBucket={(value) => valueBucket(value, 2500)}/>
         <div className="leftover"><span>Left after tax and living costs</span><b className={disposable > 0 ? 'goodText' : 'badText'}>{formatDKK(disposable)}</b><small>{comfortStatus} after your current budget inputs.</small></div>
       </div>
     </section>
